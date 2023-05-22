@@ -1,0 +1,57 @@
+<form nz-form [formGroup]="packageForm">
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="errorTemplate">
+          <input formControlName="offerId" nz-input placeholder="OfferId" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="errorTemplate">
+          <input formControlName="sponsorId" nz-input placeholder="sponsorId" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div>
+    <nz-tabset>
+      <ng-container formArrayName="tiers">
+        <ng-container *ngFor="let tier of data.tiers; let i = index">
+          <nz-tab [nzTitle]="tier?.name">
+            <div class="tier" [formGroupName]="i">
+              <div nz-row nzGutter="16">
+                <div nz-col nzSpan="12">
+                  <nz-form-control [nzErrorTip]="errorTemplate">
+                    <input
+                      formControlName="amount"
+                      nz-input
+                      placeholder="amount"
+                    />
+                  </nz-form-control>
+                </div>
+                <div nz-col nzSpan="12">
+                  <nz-form-control [nzErrorTip]="errorTemplate">
+                    <input
+                      formControlName="expiredMonth"
+                      nz-input
+                      placeholder="expierdMonth"
+                    />
+                  </nz-form-control>
+                </div>
+              </div>
+            </div>
+          </nz-tab>
+        </ng-container>
+      </ng-container>
+    </nz-tabset>
+  </div>
+</form>
+
+<ng-template #errorTemplate let-c>
+  <ng-container *ngIf="c.hasError('required')">
+    <div>Trường này không được để trống</div>
+  </ng-container>
+</ng-template>
