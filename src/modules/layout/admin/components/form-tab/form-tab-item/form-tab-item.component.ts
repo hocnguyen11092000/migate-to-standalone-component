@@ -1,11 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { markDirtyForm } from 'src/utils';
 
 @Component({
   selector: 'app-form-tab-item',
@@ -14,7 +9,7 @@ import {
 })
 export class FormTabItemComponent implements OnInit {
   @Input() data: any;
-  packageForm!: any | FormGroup;
+  packageForm!: FormGroup;
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -27,10 +22,7 @@ export class FormTabItemComponent implements OnInit {
 
   handleInitForm(): void {
     this.packageForm = this._fb.group({
-      offerId: [
-        this.data.offerId || '',
-        Validators.compose([Validators.required]),
-      ],
+      offerId: ['', Validators.compose([Validators.required])],
       sponsorId: [
         this.data.sponsorId || '',
         Validators.compose([Validators.required]),
@@ -45,8 +37,8 @@ export class FormTabItemComponent implements OnInit {
 
   handleAddTier(item?: any) {
     const tier = this._fb.group({
-      amount: [''],
-      expiredMonth: [''],
+      amount: ['', [Validators.required]],
+      expiredMonth: ['', [Validators.required]],
     });
 
     this.tiers.push(tier);
@@ -59,12 +51,7 @@ export class FormTabItemComponent implements OnInit {
         ...this.packageForm.value,
       });
     } else {
-      Object.values(this.packageForm.controls).forEach((control: any) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      markDirtyForm(this.packageForm);
     }
   }
 }

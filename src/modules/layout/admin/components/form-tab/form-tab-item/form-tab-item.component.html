@@ -24,22 +24,26 @@
             <div class="tier" [formGroupName]="i">
               <div nz-row nzGutter="16">
                 <div nz-col nzSpan="12">
-                  <nz-form-control [nzErrorTip]="errorTemplate">
-                    <input
-                      formControlName="amount"
-                      nz-input
-                      placeholder="amount"
-                    />
-                  </nz-form-control>
+                  <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorTemplate">
+                      <input
+                        formControlName="amount"
+                        nz-input
+                        placeholder="amount"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
                 </div>
                 <div nz-col nzSpan="12">
-                  <nz-form-control [nzErrorTip]="errorTemplate">
-                    <input
-                      formControlName="expiredMonth"
-                      nz-input
-                      placeholder="expierdMonth"
-                    />
-                  </nz-form-control>
+                  <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorTemplate">
+                      <input
+                        formControlName="expiredMonth"
+                        nz-input
+                        placeholder="expierdMonth"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
                 </div>
               </div>
             </div>
