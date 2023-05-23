@@ -30,6 +30,11 @@ const routes: Routes = [
         path: 'form-array-ng-model',
         component: FormArrayNgModelComponent,
       },
+      {
+        path: '',
+        redirectTo: 'form-tab',
+        pathMatch: 'full',
+      },
     ],
   },
   {
