@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { markDirtyForm } from 'src/utils';
+import { getFormValidationErrors, markDirtyForm } from 'src/utils';
 import { FormTabCheckValidAllField } from '../../../services/form-tab-check-valid-all-form.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { FormTabCheckValidAllField } from '../../../services/form-tab-check-vali
 export class FormTabItemComponent implements OnInit {
   @Input() data: any;
   packageForm!: FormGroup;
+  haveFieldsErrors: boolean = true;
 
   constructor(
     private _fb: FormBuilder,
@@ -42,7 +43,7 @@ export class FormTabItemComponent implements OnInit {
 
   handleAddTier(item?: any) {
     const tier = this._fb.group({
-      amount: [''],
+      amount: ['', Validators.compose([Validators.required])],
       expiredMonth: [''],
     });
 
@@ -52,13 +53,20 @@ export class FormTabItemComponent implements OnInit {
   handleSubmitForm(index?: number): void {
     this._formTabService.setFormStatus(this.packageForm.valid);
 
+    if (this.haveFieldsErrors) {
+      const errorFields = getFormValidationErrors(this.packageForm, index);
+      this._formTabService.setFormFieldError(errorFields);
+    } else {
+      this._formTabService.setFormFieldError([]);
+    }
+
     if (this.packageForm.valid) {
       // console.log({
       //   langCode: this.data.langCode,
       //   ...this.packageForm.value,
       // });
     } else {
-      markDirtyForm(this.packageForm, true, index);
+      markDirtyForm(this.packageForm);
     }
   }
 }

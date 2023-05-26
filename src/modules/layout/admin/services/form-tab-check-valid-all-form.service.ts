@@ -18,6 +18,6 @@ export class FormTabCheckValidAllField {
   }
 
   setFormFieldError(value: []) {
-    this.formStatus.next(value);
+    this.formFieldError.next(value);
   }
 }

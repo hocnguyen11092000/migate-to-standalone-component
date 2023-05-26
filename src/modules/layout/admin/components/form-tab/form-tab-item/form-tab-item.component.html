@@ -1,16 +1,26 @@
-<form nz-form [formGroup]="packageForm">
+<form nz-form [formGroup]="packageForm" class="package-form">
   <div nz-row nzGutter="16">
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-control [nzErrorTip]="errorTemplate">
-          <input formControlName="offerId" nz-input placeholder="OfferId" />
+          <input
+            formControlName="offerId"
+            nz-input
+            placeholder="OfferId"
+            class="offerId"
+          />
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-control [nzErrorTip]="errorTemplate">
-          <input formControlName="sponsorId" nz-input placeholder="sponsorId" />
+          <input
+            formControlName="sponsorId"
+            nz-input
+            placeholder="sponsorId"
+            class="sponsorId"
+          />
         </nz-form-control>
       </nz-form-item>
     </div>
