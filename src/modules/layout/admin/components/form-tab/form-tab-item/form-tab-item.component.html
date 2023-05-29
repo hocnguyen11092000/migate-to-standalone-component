@@ -56,6 +56,44 @@
                   </nz-form-item>
                 </div>
               </div>
+              <div style="margin-left: 8px">
+                <nz-tabset>
+                  <ng-container formArrayName="contentHTML">
+                    <ng-container
+                      *ngFor="let content of tier['contentHTML']; let j = index"
+                    >
+                      <nz-tab [nzTitle]="content?.name">
+                        <div class="tier" [formGroupName]="j">
+                          <div nz-row nzGutter="16">
+                            <div nz-col nzSpan="12">
+                              <nz-form-item>
+                                <nz-form-control [nzErrorTip]="errorTemplate">
+                                  <input
+                                    formControlName="privilegeContent"
+                                    nz-input
+                                    placeholder="privilegeContent"
+                                  />
+                                </nz-form-control>
+                              </nz-form-item>
+                            </div>
+                            <div nz-col nzSpan="12">
+                              <nz-form-item>
+                                <nz-form-control [nzErrorTip]="errorTemplate">
+                                  <input
+                                    formControlName="termContent"
+                                    nz-input
+                                    placeholder="termContent"
+                                  />
+                                </nz-form-control>
+                              </nz-form-item>
+                            </div>
+                          </div>
+                        </div>
+                      </nz-tab>
+                    </ng-container>
+                  </ng-container>
+                </nz-tabset>
+              </div>
             </div>
           </nz-tab>
         </ng-container>

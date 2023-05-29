@@ -90,10 +90,12 @@ export class FormTabComponent implements OnInit {
               );
 
               if (_elmErr) {
-                _elmErr.scrollIntoView({
-                  block: 'center',
-                  behavior: 'smooth',
-                });
+                setTimeout(() => {
+                  _elmErr.scrollIntoView({
+                    block: 'center',
+                    behavior: 'smooth',
+                  });
+                }, 200);
               }
             }
           } else {
@@ -105,10 +107,12 @@ export class FormTabComponent implements OnInit {
               );
 
               if (_elmErr) {
-                _elmErr.scrollIntoView({
-                  block: 'center',
-                  behavior: 'smooth',
-                });
+                setTimeout(() => {
+                  _elmErr.scrollIntoView({
+                    block: 'center',
+                    behavior: 'smooth',
+                  });
+                }, 200);
               }
             }
           }

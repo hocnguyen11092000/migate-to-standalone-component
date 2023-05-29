@@ -1,7 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { getFormValidationErrors, markDirtyForm } from 'src/utils';
 import { FormTabCheckValidAllField } from '../../../services/form-tab-check-valid-all-form.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-form-tab-item',
@@ -12,6 +19,7 @@ export class FormTabItemComponent implements OnInit {
   @Input() data: any;
   packageForm!: FormGroup;
   haveFieldsErrors: boolean = true;
+  level: number = 1;
 
   constructor(
     private _fb: FormBuilder,
@@ -21,8 +29,8 @@ export class FormTabItemComponent implements OnInit {
   ngOnInit(): void {
     this.handleInitForm();
 
-    this.data.tiers.forEach((item: any) => {
-      this.handleAddTier(item);
+    this.data.tiers.forEach((item: any, index: number) => {
+      this.handleAddTier(item, index);
     });
   }
 
@@ -37,20 +45,46 @@ export class FormTabItemComponent implements OnInit {
     });
   }
 
-  get tiers() {
+  tierControls() {
     return this.packageForm.controls['tiers'] as FormArray;
   }
 
-  handleAddTier(item?: any) {
+  contentHTMLControls(tierIndex: number) {
+    return this.tierControls().at(tierIndex).get('contentHTML') as FormArray;
+  }
+
+  addTier(item: any, data: any, tierIndex: number) {
+    this.tierControls().push(data);
+
+    _.forEach(item['contentHTML'] || [], (t) => {
+      this.handleAddConntent(tierIndex);
+    });
+  }
+
+  addContent(data: any, tierIndex: number) {
+    this.contentHTMLControls(tierIndex).push(data);
+  }
+
+  handleAddConntent(tierIndex: number) {
+    const content = this._fb.group({
+      privilegeContent: [''],
+      termContent: [''],
+    });
+
+    this.addContent(content, tierIndex);
+  }
+
+  handleAddTier(item: any, index: number) {
     const tier = this._fb.group({
       amount: ['', Validators.compose([Validators.required])],
       expiredMonth: [''],
+      contentHTML: this._fb.array([]),
     });
 
-    this.tiers.push(tier);
+    this.addTier(item, tier, index);
   }
 
-  handleSubmitForm(index?: number): void {
+  handleSubmitForm(index: number): void {
     this._formTabService.setFormStatus(this.packageForm.valid);
 
     if (this.haveFieldsErrors) {

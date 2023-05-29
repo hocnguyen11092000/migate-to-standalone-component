@@ -1,3 +1,8 @@
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 .header-list {
   margin-left: 135px;
   display: flex;
@@ -14,4 +19,14 @@
 .admin-active-link {
   background-color: #fff;
   color: #333;
+}
+
+.header-langs {
+  background-color: #fff;
+  padding: 0 12px;
+  color: #333;
+
+  & > a {
+    color: #333;
+  }
 }

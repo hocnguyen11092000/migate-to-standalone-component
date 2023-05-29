@@ -10,24 +10,64 @@ export const formTabData = [
         name: 'cơ bản',
         amount: '15000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'đặc quyền',
+            content: '',
+          },
+          {
+            name: 'điều khoản',
+            content: '',
+          },
+        ],
       },
       {
         rank: '2',
         name: 'bạc',
         amount: '25000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'đặc quyền',
+            content: '',
+          },
+          {
+            name: 'diều khoản',
+            content: '',
+          },
+        ],
       },
       {
         rank: '3',
         name: 'vàng',
         amount: '35000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'đặc quyền',
+            content: '',
+          },
+          {
+            name: 'điều khoản',
+            content: '',
+          },
+        ],
       },
       {
         rank: '4',
         name: 'kim cương',
         amount: '45000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'đặc quyền',
+            content: '',
+          },
+          {
+            name: 'điều khoản',
+            content: '',
+          },
+        ],
       },
     ],
   },
@@ -42,24 +82,64 @@ export const formTabData = [
         name: 'red',
         amount: '15000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
       {
         rank: '2',
         name: 'silver',
         amount: '25000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
       {
         rank: '3',
         name: 'gold',
         amount: '35000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
       {
         rank: '4',
         name: 'diamond',
         amount: '45000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
     ],
   },
@@ -74,24 +154,64 @@ export const formTabData = [
         name: 'red',
         amount: '15000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
       {
         rank: '2',
         name: 'silver',
         amount: '25000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
       {
         rank: '3',
         name: 'gold',
         amount: '35000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            content: '',
+          },
+          {
+            name: 'term',
+            content: '',
+          },
+        ],
       },
       {
         rank: '4',
         name: 'diamond',
         amount: '45000',
         expiredMonth: '12',
+        contentHTML: [
+          {
+            name: 'privilege',
+            privilegeContent: '',
+          },
+          {
+            name: 'term',
+            termContent: '',
+          },
+        ],
       },
     ],
   },
