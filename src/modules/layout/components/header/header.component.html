@@ -1,21 +1,37 @@
 <nz-header>
   <div class="logo"></div>
-  <ul class="header-list">
-    <li
-      class="header-list__item"
-      [routerLinkActiveOptions]="{ exact: false }"
-      routerLinkActive="admin-active-link"
-      routerLink="form-tab"
-    >
-      Form tab
-    </li>
-    <li
-      class="header-list__item"
-      [routerLinkActiveOptions]="{ exact: false }"
-      routerLinkActive="admin-active-link"
-      routerLink="form-array-ng-model"
-    >
-      Form array (ng-model)
-    </li>
-  </ul>
+  <div class="header-nav">
+    <ul class="header-list">
+      <li
+        class="header-list__item"
+        [routerLinkActiveOptions]="{ exact: false }"
+        routerLinkActive="admin-active-link"
+        routerLink="form-tab"
+      >
+        Form tab
+      </li>
+      <li
+        class="header-list__item"
+        [routerLinkActiveOptions]="{ exact: false }"
+        routerLinkActive="admin-active-link"
+        routerLink="form-array-ng-model"
+      >
+        Form array (ng-model)
+      </li>
+    </ul>
+    <div class="header-langs">
+      <nz-select
+        [ngModel]="currentlang"
+        style="width: 120px"
+        (ngModelChange)="handleChangeLang($event)"
+      >
+        <ng-container *ngFor="let lang of langs">
+          <nz-option
+            [nzValue]="lang"
+            nzLabel="{{ lang | translate }}"
+          ></nz-option>
+        </ng-container>
+      </nz-select>
+    </div>
+  </div>
 </nz-header>

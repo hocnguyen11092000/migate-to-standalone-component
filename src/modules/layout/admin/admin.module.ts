@@ -15,6 +15,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { TranslateModule } from '@ngx-translate/core';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 //#endregion ant
 
 const routes: Routes = [
@@ -56,7 +58,9 @@ const routes: Routes = [
     NzInputModule,
     NzButtonModule,
     NzGridModule,
+    NzDropDownModule,
     //#endregion ant
+    TranslateModule,
   ],
   exports: [RouterModule],
 })
