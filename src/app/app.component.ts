@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { TranslateCoreService } from 'src/services/translate.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   title = 'submit-mutiple-form';
-  constructor(private _translate: TranslateService) {}
+  constructor(private _translateCoreService: TranslateCoreService) {}
 
   ngOnInit(): void {
-    this._translate.addLangs(['en', 'vi']);
-    this._translate.setDefaultLang('en');
-    this._translate.use('en');
+    this._translateCoreService.initCoreTranslate();
   }
 }
