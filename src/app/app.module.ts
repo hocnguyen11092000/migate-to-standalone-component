@@ -11,8 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from 'src/modules/layout/layout.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  MissingTranslationHandler,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MyMissingTranslationHandler } from 'src/services/missingTranslate.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -34,6 +39,11 @@ registerLocaleData(en);
         useFactory: createTranslateLoader,
         deps: [HttpClient],
       },
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: MyMissingTranslationHandler,
+      },
+      useDefaultLang: false,
     }),
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],

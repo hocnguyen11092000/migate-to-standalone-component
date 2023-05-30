@@ -20,6 +20,7 @@
     "@angular/router": "^14.1.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@types/lodash": "^4.14.195",
     "ng-zorro-antd": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
