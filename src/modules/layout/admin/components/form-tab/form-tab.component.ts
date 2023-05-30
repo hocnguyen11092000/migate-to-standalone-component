@@ -1,4 +1,11 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import * as _ from 'lodash';
 import { filter, map, scan, take, takeLast, toArray, zip } from 'rxjs';
 import { FormTabCheckValidAllField } from '../../services/form-tab-check-valid-all-form.service';
@@ -15,6 +22,7 @@ export class FormTabComponent implements OnInit {
   data: any = formTabData;
   @ViewChildren('item') item!: QueryList<FormTabItemComponent>;
   selectedIndex = 0;
+  isChanging = false;
 
   constructor(private _formTabService: FormTabCheckValidAllField) {}
 
@@ -22,6 +30,10 @@ export class FormTabComponent implements OnInit {
     if (!_.isEmpty(this.data)) {
       this._formTabService.setFormLength(_.size(this.data));
     }
+  }
+
+  handleChangeForm(isChanging: boolean): void {
+    this.isChanging = isChanging;
   }
 
   handleSubmitAllForm() {
