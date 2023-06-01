@@ -1,0 +1,173 @@
+<div class="passenger-form">
+  <form [formGroup]="passengerForm" (ngSubmit)="handleSubmitForm()">
+    <button type="submit" nz-button>Submit</button>
+    <br /><br />
+    <ng-container *ngIf="toAdultsArray && toAdultsArray.length > 0">
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzActive]="true"
+          *ngFor="let adult of toAdultsArray; index as iAdult"
+          nzHeader="Adults"
+          style="background: #f7f7f7; border-radius: 4px; margin-bottom: 24px"
+        >
+          <p>
+            <ng-container formArrayName="adults">
+              <div class="passenger-adults" [formGroupName]="iAdult">
+                <div nz-row nzGutter="16">
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="firstName"
+                          nz-input
+                          placeholder="firstName"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="lastName"
+                          nz-input
+                          placeholder="lastName"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="email"
+                          nz-input
+                          placeholder="email"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="phoneNumber"
+                          nz-input
+                          placeholder="phoneNumber"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </p>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <br />
+    </ng-container>
+
+    <ng-container *ngIf="toChildrenArray && toChildrenArray.length > 0">
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzActive]="true"
+          *ngFor="let child of toChildrenArray; index as iChild"
+          nzHeader="Children"
+          style="background: #f7f7f7; border-radius: 4px; margin-bottom: 24px"
+        >
+          <p>
+            <ng-container formArrayName="children">
+              <div class="passenger-children" [formGroupName]="iChild">
+                <div nz-row nzGutter="16">
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="firstName"
+                          nz-input
+                          placeholder="firstName"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="lastName"
+                          nz-input
+                          placeholder="lastName"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </p>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <br />
+    </ng-container>
+
+    <ng-container *ngIf="toInfantsArray && toInfantsArray.length > 0">
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzActive]="true"
+          *ngFor="let infant of toInfantsArray; index as iInfant"
+          nzHeader="Infants"
+          style="background: #f7f7f7; border-radius: 4px; margin-bottom: 24px"
+        >
+          <p>
+            <ng-container formArrayName="infants">
+              <div class="passenger-children" [formGroupName]="iInfant">
+                <div nz-row nzGutter="16">
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="firstName"
+                          nz-input
+                          placeholder="firstName"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="lastName"
+                          nz-input
+                          placeholder="lastName"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item>
+                      <nz-form-control [nzErrorTip]="errorTemplate">
+                        <input
+                          formControlName="flyWith"
+                          nz-input
+                          placeholder="flyWith"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </p>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <br />
+    </ng-container>
+  </form>
+</div>
+
+<ng-template #errorTemplate let-c>
+  <ng-container *ngIf="c.hasError('required')">
+    <div>Trường này không được để trống</div>
+  </ng-container>
+</ng-template>
