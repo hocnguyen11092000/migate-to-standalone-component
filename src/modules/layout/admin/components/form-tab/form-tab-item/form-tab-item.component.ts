@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -9,6 +9,7 @@ import {
 import { getFormValidationErrors, markDirtyForm } from 'src/utils';
 import { FormTabCheckValidAllField } from '../../../services/form-tab-check-valid-all-form.service';
 import * as _ from 'lodash';
+import { takeWhile, tap } from 'rxjs';
 
 @Component({
   selector: 'app-form-tab-item',
@@ -20,6 +21,7 @@ export class FormTabItemComponent implements OnInit {
   packageForm!: FormGroup;
   haveFieldsErrors: boolean = true;
   level: number = 1;
+  @Output() oChanging = new EventEmitter<boolean>();
 
   constructor(
     private _fb: FormBuilder,
@@ -32,6 +34,20 @@ export class FormTabItemComponent implements OnInit {
     this.data.tiers.forEach((item: any, index: number) => {
       this.handleAddTier(item, index);
     });
+
+    //listend form value changes
+    const isChanging$ = this.packageForm.valueChanges
+      .pipe(
+        tap(() => {
+          if (this.packageForm.dirty) {
+            this.oChanging.emit(true);
+            isChanging$.unsubscribe();
+          }
+        })
+      )
+      .subscribe();
+
+    this.packageForm.controls['offerId'].setValue('offer 1232');
   }
 
   handleInitForm(): void {
@@ -100,7 +116,7 @@ export class FormTabItemComponent implements OnInit {
       //   ...this.packageForm.value,
       // });
     } else {
-      markDirtyForm(this.packageForm);
+      // markDirtyForm(this.packageForm);
     }
   }
 }

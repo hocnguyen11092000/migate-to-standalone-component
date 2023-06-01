@@ -10,7 +10,11 @@
   <nz-tabset [(nzSelectedIndex)]="selectedIndex">
     <ng-container *ngFor="let i of data">
       <nz-tab [nzTitle]="i?.langName || ''">
-        <app-form-tab-item #item [data]="i"></app-form-tab-item>
+        <app-form-tab-item
+          (oChanging)="handleChangeForm($event)"
+          #item
+          [data]="i"
+        ></app-form-tab-item>
       </nz-tab>
     </ng-container>
   </nz-tabset>
