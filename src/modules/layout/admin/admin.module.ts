@@ -18,9 +18,12 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-// import { CanDeactivateConfirmLeave } from 'src/guards/confirm-leave.guard';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 //#endregion ant
+
+//#region guard
+import { CanDeactivateConfirmLeave } from 'src/guards/confirm-leave.guard';
+//#endregion guard
 
 const routes: Routes = [
   {
@@ -30,6 +33,7 @@ const routes: Routes = [
       {
         path: 'form-tab',
         component: FormTabComponent,
+        canDeactivate: [CanDeactivateConfirmLeave],
       },
       {
         path: 'form-array-ng-model',
@@ -75,5 +79,6 @@ const routes: Routes = [
     TranslateModule,
   ],
   exports: [RouterModule],
+  providers: [CanDeactivateConfirmLeave],
 })
 export class AdminModule {}
