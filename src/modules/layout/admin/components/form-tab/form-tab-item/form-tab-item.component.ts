@@ -32,7 +32,7 @@ export class FormTabItemComponent implements OnInit {
     this.handleInitForm();
 
     this.data.tiers.forEach((item: any, index: number) => {
-      this.handleAddTier(item, index);
+      this.InitTierControl(item, index);
     });
 
     //listend form value changes
@@ -61,43 +61,43 @@ export class FormTabItemComponent implements OnInit {
     });
   }
 
-  tierControls() {
+  getTierControl() {
     return this.packageForm.controls['tiers'] as FormArray;
   }
 
-  contentHTMLControls(tierIndex: number) {
-    return this.tierControls().at(tierIndex).get('contentHTML') as FormArray;
-  }
-
-  addTier(item: any, data: any, tierIndex: number) {
-    this.tierControls().push(data);
-
-    _.forEach(item['contentHTML'] || [], (t) => {
-      this.handleAddConntent(tierIndex);
-    });
-  }
-
-  addContent(data: any, tierIndex: number) {
-    this.contentHTMLControls(tierIndex).push(data);
-  }
-
-  handleAddConntent(tierIndex: number) {
-    const content = this._fb.group({
-      privilegeContent: [''],
-      termContent: [''],
-    });
-
-    this.addContent(content, tierIndex);
-  }
-
-  handleAddTier(item: any, index: number) {
+  InitTierControl(item: any, index: number) {
     const tier = this._fb.group({
       amount: ['', Validators.compose([Validators.required])],
       expiredMonth: [''],
       contentHTML: this._fb.array([]),
     });
 
-    this.addTier(item, tier, index);
+    this.pushTier(item, tier, index);
+  }
+
+  pushTier(item: any, data: any, tierIndex: number) {
+    this.getTierControl().push(data);
+
+    _.forEach(item['contentHTML'] || [], (t) => {
+      this.InitContentHTMLControl(tierIndex);
+    });
+  }
+
+  getContentHTMLControls(tierIndex: number) {
+    return this.getTierControl().at(tierIndex).get('contentHTML') as FormArray;
+  }
+
+  InitContentHTMLControl(tierIndex: number) {
+    const content = this._fb.group({
+      privilegeContent: [''],
+      termContent: [''],
+    });
+
+    this.pushContentHTML(content, tierIndex);
+  }
+
+  pushContentHTML(data: any, tierIndex: number) {
+    this.getContentHTMLControls(tierIndex).push(data);
   }
 
   handleSubmitForm(index: number): void {

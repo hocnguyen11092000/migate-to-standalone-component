@@ -16,6 +16,8 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 //#endregion ant
 
 const routes: Routes = [
@@ -38,6 +40,7 @@ const routes: Routes = [
     MenuItemComponent,
     FooterComponent,
     HeaderComponent,
+    MenuComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -49,6 +52,8 @@ const routes: Routes = [
     NzBreadCrumbModule,
     NzDropDownModule,
     NzSelectModule,
+    NzMenuModule,
+    NzIconModule,
     //#endregion ant
     TranslateModule,
   ],
@@ -59,6 +64,7 @@ const routes: Routes = [
     FooterComponent,
     HeaderComponent,
     RouterModule,
+    MenuComponent,
   ],
 })
 export class LayoutModule {}
