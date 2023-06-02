@@ -1,1 +1,10 @@
+<div class="search-container">
+  <div>
+    <input type="text" (keyup)="handleKeyUp($event)" placeholder="search..." />
+    <div style="margin: 4px 0; text-align: center; height: 30px">
+      {{ loadingg ? "loading..." : "" }}
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>
