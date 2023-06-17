@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
+import { markDirtyForm } from 'src/utils';
 
 @Component({
   selector: 'app-form-array-reactive-form',
@@ -10,7 +11,7 @@ import * as _ from 'lodash';
 export class FormArrayReactiveFormComponent implements OnInit {
   passengerForm!: FormGroup;
   passengerInfo: any = {
-    adults: 2,
+    adults: 5,
     children: 1,
     infants: 1,
   };
@@ -72,7 +73,7 @@ export class FormArrayReactiveFormComponent implements OnInit {
 
   private initAdultControl(): void {
     const _adult = this._fb.group({
-      firstName: [''],
+      firstName: ['', Validators.compose([Validators.required])],
       lastName: [''],
       email: [''],
       phoneNumber: [''],
@@ -127,7 +128,11 @@ export class FormArrayReactiveFormComponent implements OnInit {
 
   //#endregion handle submit form
   handleSubmitForm() {
-    console.log(this.passengerForm.value);
+    if (this.passengerForm.valid) {
+      console.log(this.passengerForm.value);
+    } else {
+      markDirtyForm(this.passengerForm);
+    }
   }
   //#endregion handle submit form
 }

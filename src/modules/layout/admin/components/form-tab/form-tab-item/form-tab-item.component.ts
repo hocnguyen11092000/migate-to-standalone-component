@@ -89,7 +89,10 @@ export class FormTabItemComponent implements OnInit {
 
   InitContentHTMLControl(tierIndex: number) {
     const content = this._fb.group({
-      privilegeContent: [''],
+      privilegeContent: [
+        '',
+        Validators.compose([Validators.required, Validators.min(3)]),
+      ],
       termContent: [''],
     });
 
@@ -116,7 +119,7 @@ export class FormTabItemComponent implements OnInit {
       //   ...this.packageForm.value,
       // });
     } else {
-      // markDirtyForm(this.packageForm);
+      markDirtyForm(this.packageForm);
     }
   }
 }
