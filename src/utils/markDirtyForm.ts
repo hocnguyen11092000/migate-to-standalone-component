@@ -43,20 +43,20 @@ export const getFormValidationErrors = (
   formInstant: FormGroup,
   formIndex: number
 ) => {
-  const result: any = [];
+  let _result: any = [];
 
   Object.keys(formInstant.controls).forEach((key) => {
     const controlErrors = formInstant?.get(key)
       ?.errors as ValidationErrors | null;
 
     if (formInstant?.get(key) instanceof FormArray) {
-      result.push(
-        ...getFielErorsFormArray(formInstant?.get(key) as FormArray, formIndex)
-      );
+      _.set(_result, key, [
+        ...getFielErorsFormArray(formInstant?.get(key) as FormArray, formIndex),
+      ]);
     } else {
       if (controlErrors) {
         Object.keys(controlErrors).forEach((keyError) => {
-          result.push({
+          _.set(_result, key, {
             formIndex: _.isNumber(formIndex) ? formIndex : null,
             control: key,
             error: keyError,
@@ -67,7 +67,7 @@ export const getFormValidationErrors = (
     }
   });
 
-  return result;
+  return _result;
 };
 
 export const getFielErorsFormArray = (
@@ -84,14 +84,14 @@ export const getFielErorsFormArray = (
       const _formControls = _.get(formGroup, 'controls');
 
       if (_formControls) {
-        _.forEach(_.keys(_formControls), (_key) => {
+        _.forEach(_.keys(_formControls), (_key, index: number) => {
           if (_.get(_formControls, _key) instanceof FormArray) {
-            _subErrors.push(
+            _.set(_subErrors[_indexFormArray], 'children', [
               ...getFielErorsFormArray(
                 _.get(_formControls, _key) as FormArray,
                 formIndex
-              )
-            );
+              ),
+            ]);
           } else {
             const _errorFields = _.get(_formControls[_key], 'errors');
 

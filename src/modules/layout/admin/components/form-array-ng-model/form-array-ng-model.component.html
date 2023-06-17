@@ -1,1 +1,8 @@
-<p>form-array-ng-model works!</p>
+<h2>Form tab ng model</h2>
+<div class="form-group" (click)="handleSubmitForm()">
+  <button nz-button nzType="primary">Submit</button>
+</div>
+<br />
+<ng-container *ngFor="let item of data">
+  <app-form-array-ng-model-item [data]="item"></app-form-array-ng-model-item>
+</ng-container>

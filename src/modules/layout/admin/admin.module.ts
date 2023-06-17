@@ -4,13 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../components/layout/layout.component';
 import {
   FormArrayNgModelComponent,
+  FormArrayNgModelItemComponent,
   FormArrayReactiveFormComponent,
   FormTabComponent,
   FormTabItemComponent,
 } from './components';
 
 //#region ant
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -62,11 +63,14 @@ const routes: Routes = [
     FormTabComponent,
     FormTabItemComponent,
     FormArrayReactiveFormComponent,
+    FormArrayNgModelItemComponent,
+    FormArrayNgModelComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     //#region ant
     NzTabsModule,
     NzFormModule,

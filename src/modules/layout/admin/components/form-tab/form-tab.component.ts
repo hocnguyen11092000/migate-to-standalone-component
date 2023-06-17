@@ -7,11 +7,12 @@ import {
   ViewChildren,
 } from '@angular/core';
 import * as _ from 'lodash';
-import { filter, map, scan, take, takeLast, toArray, zip } from 'rxjs';
+import { filter, map, scan, take, takeLast, tap, toArray, zip } from 'rxjs';
 import { FormTabCheckValidAllField } from '../../services/form-tab-check-valid-all-form.service';
 import { formTabData } from './data';
 import { FormTabItemComponent } from './form-tab-item/form-tab-item.component';
 import { FORM_GROUP } from '../../constant';
+import { FormLenghStervice } from '../../services/form-lenght.service';
 
 @Component({
   selector: 'app-form-tab',
@@ -24,9 +25,14 @@ export class FormTabComponent implements OnInit {
   selectedIndex = 0;
   isChanging = false;
 
-  constructor(private _formTabService: FormTabCheckValidAllField) {}
+  constructor(
+    private _formTabService: FormTabCheckValidAllField,
+    private _formLength: FormLenghStervice
+  ) {}
 
   ngOnInit(): void {
+    this._formLength.setFormLength(3);
+
     if (!_.isEmpty(this.data)) {
       this._formTabService.setFormLength(_.size(this.data));
     }
@@ -40,6 +46,8 @@ export class FormTabComponent implements OnInit {
     _.forEach([...this.item], (i, index) => {
       i.handleSubmitForm(index);
     });
+
+    this._formTabService.formStatus.subscribe(console.log);
 
     // this._formTabService.formStatus
     //   .pipe(
@@ -80,6 +88,9 @@ export class FormTabComponent implements OnInit {
             formState,
             formError,
           };
+        }),
+        tap((val) => {
+          console.log(val);
         })
       )
       .subscribe((val: any) => {
