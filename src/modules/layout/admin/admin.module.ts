@@ -8,6 +8,7 @@ import {
   FormArrayReactiveFormComponent,
   FormTabComponent,
   FormTabItemComponent,
+  ReactiveFormCustomValidatorComponent,
 } from './components';
 
 //#region ant
@@ -45,6 +46,10 @@ const routes: Routes = [
         component: FormArrayReactiveFormComponent,
       },
       {
+        path: 'reactive-form-custom-validator',
+        component: ReactiveFormCustomValidatorComponent,
+      },
+      {
         path: '',
         redirectTo: 'form-tab',
         pathMatch: 'full',
@@ -65,6 +70,7 @@ const routes: Routes = [
     FormArrayReactiveFormComponent,
     FormArrayNgModelItemComponent,
     FormArrayNgModelComponent,
+    ReactiveFormCustomValidatorComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
