@@ -1,0 +1,43 @@
+<h2>Reactive form custom validator</h2>
+
+<form [formGroup]="authForm" nz-form (ngSubmit)="handleSubmitForm()">
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="errorTemplate">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          type="text"
+          nz-input
+          formControlName="userName"
+          placeholder="Username"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="errorTemplate">
+      <nz-input-group nzPrefixIcon="lock">
+        <input
+          type="password"
+          nz-input
+          formControlName="password"
+          placeholder="Password"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <button
+    nz-button
+    class="login-form-button login-form-margin"
+    [nzType]="'primary'"
+  >
+    Submit
+  </button>
+</form>
+
+<ng-template #errorTemplate let-e>
+  <ng-container *ngIf="e.hasError('required') || e.hasError('whitespace')">
+    <div>Trường này không được để trống</div>
+  </ng-container>
+</ng-template>
