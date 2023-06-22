@@ -1,3 +1,6 @@
+import { inject } from '@angular/core';
+import { NgModelForm } from '../services/ng-model-form.service';
+
 export const userData = [
   {
     name: 'team 1',
@@ -39,3 +42,8 @@ export const userData = [
     ],
   },
 ];
+
+export const injectFunction = () => {
+  const _ngFormService = inject(NgModelForm);
+  console.log('inject function __', _ngFormService);
+};

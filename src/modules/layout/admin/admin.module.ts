@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../components/layout/layout.component';
 import {
@@ -25,6 +25,8 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 //#region guard
 import { CanDeactivateConfirmLeave } from 'src/guards/confirm-leave.guard';
+import { NgModelForm } from './components/form-array-ng-model/services/ng-model-form.service';
+import { NgFormLength } from './components/form-array-ng-model/services/ng-form-length.service';
 //#endregion guard
 
 const routes: Routes = [
@@ -89,6 +91,16 @@ const routes: Routes = [
     TranslateModule,
   ],
   exports: [RouterModule],
-  providers: [CanDeactivateConfirmLeave],
+  providers: [
+    CanDeactivateConfirmLeave,
+    // {
+    //   provide: NgModelForm,
+    //   useFactory: () => {
+    //     // OK: a class factory
+    //     const engine = inject(NgFormLength);
+    //     return new NgModelForm(engine);
+    //   },
+    // },
+  ],
 })
 export class AdminModule {}

@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { injectFunction } from './data/index';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { userData } from './data';
 import * as _ from 'lodash';
 import { NgModelForm } from './services/ng-model-form.service';
@@ -13,11 +14,14 @@ import { NgFormLength } from './services/ng-form-length.service';
 export class FormArrayNgModelComponent implements OnInit, OnDestroy {
   data = userData;
   destroy$ = new Subject();
+  private _ngFormService = inject(NgModelForm);
 
   constructor(
-    private _ngFormService: NgModelForm,
+    // private _ngFormService: NgModelForm,
     private _ngFormLengthService: NgFormLength
-  ) {}
+  ) {
+    injectFunction();
+  }
 
   ngOnInit(): void {
     this._ngFormLengthService.setFormLength(3);
