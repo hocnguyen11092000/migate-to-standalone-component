@@ -3,7 +3,7 @@
 <form [formGroup]="authForm" nz-form (ngSubmit)="handleSubmitForm()">
   <nz-form-item>
     <nz-form-control [nzErrorTip]="errorTemplate">
-      <nz-input-group nzPrefixIcon="user">
+      <nz-input-group>
         <input
           type="text"
           nz-input
@@ -16,7 +16,7 @@
 
   <nz-form-item>
     <nz-form-control [nzErrorTip]="errorTemplate">
-      <nz-input-group nzPrefixIcon="lock">
+      <nz-input-group>
         <input
           type="password"
           nz-input

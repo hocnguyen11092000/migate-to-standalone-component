@@ -11,8 +11,8 @@ describe('ReactiveFormCustomValidatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReactiveFormCustomValidatorComponent ]
-    })
+    imports: [ReactiveFormCustomValidatorComponent]
+})
     .compileComponents();
   }));
 

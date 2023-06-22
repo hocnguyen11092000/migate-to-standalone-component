@@ -1,20 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { getFormValidationErrors, markDirtyForm } from 'src/utils';
 import { FormTabCheckValidAllField } from '../../../services/form-tab-check-valid-all-form.service';
 import * as _ from 'lodash';
 import { takeWhile, tap } from 'rxjs';
+import { NgFor, NgIf } from '@angular/common';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 @Component({
-  selector: 'app-form-tab-item',
-  templateUrl: './form-tab-item.component.html',
-  styleUrls: ['./form-tab-item.component.scss'],
+    selector: 'app-form-tab-item',
+    templateUrl: './form-tab-item.component.html',
+    styleUrls: ['./form-tab-item.component.scss'],
+    standalone: true,
+    imports: [ReactiveFormsModule, NzFormModule, NzGridModule, NzInputModule, NzTabsModule, NgFor, NgIf]
 })
 export class FormTabItemComponent implements OnInit {
   @Input() data: any;

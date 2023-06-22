@@ -34,37 +34,34 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    MenuComponent,
-    MenuItemComponent,
-    FooterComponent,
-    HeaderComponent,
-    MenuComponent,
-  ],
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    FormsModule,
-
-    //#region ant
-    NzLayoutModule,
-    NzBreadCrumbModule,
-    NzDropDownModule,
-    NzSelectModule,
-    NzMenuModule,
-    NzIconModule,
-    //#endregion ant
-    TranslateModule,
-  ],
-  exports: [
-    LayoutComponent,
-    MenuComponent,
-    MenuItemComponent,
-    FooterComponent,
-    HeaderComponent,
-    RouterModule,
-    MenuComponent,
-  ],
+    imports: [
+        RouterModule.forChild(routes),
+        CommonModule,
+        FormsModule,
+        //#region ant
+        NzLayoutModule,
+        NzBreadCrumbModule,
+        NzDropDownModule,
+        NzSelectModule,
+        NzMenuModule,
+        NzIconModule,
+        //#endregion ant
+        TranslateModule,
+        LayoutComponent,
+        MenuComponent,
+        MenuItemComponent,
+        FooterComponent,
+        HeaderComponent,
+        MenuComponent
+    ],
+    exports: [
+        LayoutComponent,
+        MenuComponent,
+        MenuItemComponent,
+        FooterComponent,
+        HeaderComponent,
+        RouterModule,
+        MenuComponent,
+    ]
 })
 export class LayoutModule {}

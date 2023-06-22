@@ -11,8 +11,8 @@ describe('FormArrayReactiveFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormArrayReactiveFormComponent ]
-    })
+    imports: [FormArrayReactiveFormComponent]
+})
     .compileComponents();
   }));
 

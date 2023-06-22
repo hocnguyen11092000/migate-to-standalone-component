@@ -40,6 +40,11 @@ const routes: Routes = [
         canDeactivate: [CanDeactivateConfirmLeave],
       },
       {
+        path: 'form-tab/:id',
+        component: FormTabComponent,
+        canDeactivate: [CanDeactivateConfirmLeave],
+      },
+      {
         path: 'form-array-ng-model',
         component: FormArrayNgModelComponent,
       },
@@ -66,14 +71,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    FormTabComponent,
-    FormTabItemComponent,
-    FormArrayReactiveFormComponent,
-    FormArrayNgModelItemComponent,
-    FormArrayNgModelComponent,
-    ReactiveFormCustomValidatorComponent,
-  ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -89,6 +86,12 @@ const routes: Routes = [
     NzCollapseModule,
     //#endregion ant
     TranslateModule,
+    FormTabComponent,
+    FormTabItemComponent,
+    FormArrayReactiveFormComponent,
+    FormArrayNgModelItemComponent,
+    FormArrayNgModelComponent,
+    ReactiveFormCustomValidatorComponent,
   ],
   exports: [RouterModule],
   providers: [

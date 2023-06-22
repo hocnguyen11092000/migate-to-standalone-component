@@ -5,11 +5,17 @@ import * as _ from 'lodash';
 import { NgModelForm } from './services/ng-model-form.service';
 import { Subject, debounceTime, pipe, takeUntil } from 'rxjs';
 import { NgFormLength } from './services/ng-form-length.service';
+import { FormArrayNgModelItemComponent } from './form-array-ng-model-item/form-array-ng-model-item.component';
+import { NgFor } from '@angular/common';
+import { NzWaveModule } from 'ng-zorro-antd/core/wave';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
-  selector: 'app-form-array-ng-model',
-  templateUrl: './form-array-ng-model.component.html',
-  styleUrls: ['./form-array-ng-model.component.scss'],
+    selector: 'app-form-array-ng-model',
+    templateUrl: './form-array-ng-model.component.html',
+    styleUrls: ['./form-array-ng-model.component.scss'],
+    standalone: true,
+    imports: [NzButtonModule, NzWaveModule, NgFor, FormArrayNgModelItemComponent]
 })
 export class FormArrayNgModelComponent implements OnInit, OnDestroy {
   data = userData;

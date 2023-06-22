@@ -8,8 +8,8 @@ describe('FormTabComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormTabComponent ]
-    })
+    imports: [FormTabComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(FormTabComponent);

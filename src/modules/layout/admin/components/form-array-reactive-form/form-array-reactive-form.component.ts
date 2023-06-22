@@ -1,12 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as _ from 'lodash';
 import { markDirtyForm } from 'src/utils';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NgIf, NgFor } from '@angular/common';
+import { NzWaveModule } from 'ng-zorro-antd/core/wave';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
-  selector: 'app-form-array-reactive-form',
-  templateUrl: './form-array-reactive-form.component.html',
-  styleUrls: ['./form-array-reactive-form.component.css'],
+    selector: 'app-form-array-reactive-form',
+    templateUrl: './form-array-reactive-form.component.html',
+    styleUrls: ['./form-array-reactive-form.component.css'],
+    standalone: true,
+    imports: [ReactiveFormsModule, NzButtonModule, NzWaveModule, NgIf, NzCollapseModule, NgFor, NzGridModule, NzFormModule, NzInputModule]
 })
 export class FormArrayReactiveFormComponent implements OnInit {
   passengerForm!: FormGroup;

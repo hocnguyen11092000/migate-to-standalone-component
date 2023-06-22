@@ -5,25 +5,53 @@ import {
   Output,
   QueryList,
   ViewChildren,
+  inject,
 } from '@angular/core';
 import * as _ from 'lodash';
-import { filter, map, scan, take, takeLast, tap, toArray, zip } from 'rxjs';
+import {
+  filter,
+  map,
+  scan,
+  take,
+  takeLast,
+  tap,
+  timer,
+  toArray,
+  zip,
+} from 'rxjs';
 import { FormTabCheckValidAllField } from '../../services/form-tab-check-valid-all-form.service';
 import { formTabData } from './data';
 import { FormTabItemComponent } from './form-tab-item/form-tab-item.component';
 import { FORM_GROUP } from '../../constant';
 import { FormLenghStervice } from '../../services/form-lenght.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NgIf, NgFor } from '@angular/common';
+import { NzWaveModule } from 'ng-zorro-antd/core/wave';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-form-tab',
   templateUrl: './form-tab.component.html',
   styleUrls: ['./form-tab.component.scss'],
+  standalone: true,
+  imports: [
+    NzButtonModule,
+    NzWaveModule,
+    NgIf,
+    NzTabsModule,
+    NgFor,
+    FormTabItemComponent,
+    TranslateModule,
+  ],
 })
 export class FormTabComponent implements OnInit {
   data: any = formTabData;
   @ViewChildren('item') item!: QueryList<FormTabItemComponent>;
   selectedIndex = 0;
   isChanging = false;
+  private _auth = inject(AuthService);
 
   constructor(
     private _formTabService: FormTabCheckValidAllField,

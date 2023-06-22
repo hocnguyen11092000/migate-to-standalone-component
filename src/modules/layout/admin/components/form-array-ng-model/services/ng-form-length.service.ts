@@ -12,12 +12,4 @@ export class NgFormLength {
   setFormLength(value: number) {
     this.formLength$.next(value);
   }
-
-  private get test() {
-    return this.injector.get(NgModelForm);
-  }
-
-  doSomething() {
-    console.log('___prevent circular import', this.test);
-  }
 }

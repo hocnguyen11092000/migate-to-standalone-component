@@ -6,9 +6,7 @@ import { NgFormLength } from './ng-form-length.service';
   providedIn: 'root',
 })
 export class NgModelForm {
-  constructor(private _ngFormLengthService: NgFormLength) {
-    this._ngFormLengthService.doSomething();
-  }
+  constructor(private _ngFormLengthService: NgFormLength) {}
 
   private isValidFormSubject = new BehaviorSubject(false);
   isValidForm$ = this.isValidFormSubject.asObservable().pipe(

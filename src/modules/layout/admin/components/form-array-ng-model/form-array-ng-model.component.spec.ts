@@ -8,8 +8,8 @@ describe('FormArrayNgModelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormArrayNgModelComponent ]
-    })
+    imports: [FormArrayNgModelComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(FormArrayNgModelComponent);

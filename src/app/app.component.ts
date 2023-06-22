@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  inject,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -19,12 +20,16 @@ import {
 } from 'rxjs';
 import { TestService } from 'src/services/test.service';
 import { TranslateCoreService } from 'src/services/translate.service';
+import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [RouterOutlet],
 })
 export class AppComponent implements OnInit {
   title = 'submit-mutiple-form';
@@ -35,7 +40,17 @@ export class AppComponent implements OnInit {
     private _cdr: ChangeDetectorRef
   ) {}
 
+  private _http = inject(HttpClient);
+
   ngOnInit(): void {
+    this._http
+      .get('https://649462370da866a95367ab9e.mockapi.io/category')
+      .subscribe(console.log);
+
+    this._http
+      .get('https://649462370da866a95367ab9e.mockapi.io/login')
+      .subscribe(console.log);
+
     this._translateCoreService.initCoreTranslate();
 
     this._testService.inputValue$
