@@ -41,3 +41,16 @@
     <div>Trường này không được để trống</div>
   </ng-container>
 </ng-template>
+
+<div>---------- regex validation -----------</div>
+<br />
+<input
+  [UpercaseText]="true"
+  [RemoveVNTones]="true"
+  [removeSpace]="true"
+  type="text"
+  [(ngModel)]="value"
+  placeholder="input..."
+  nz-input
+/>
+<span>{{ value }}</span>
