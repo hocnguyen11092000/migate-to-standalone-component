@@ -9,18 +9,20 @@ import { FormArrayNgModelItemComponent } from './form-array-ng-model-item/form-a
 import { NgFor } from '@angular/common';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { RouterService } from 'src/services/pre-router.service';
 
 @Component({
-    selector: 'app-form-array-ng-model',
-    templateUrl: './form-array-ng-model.component.html',
-    styleUrls: ['./form-array-ng-model.component.scss'],
-    standalone: true,
-    imports: [NzButtonModule, NzWaveModule, NgFor, FormArrayNgModelItemComponent]
+  selector: 'app-form-array-ng-model',
+  templateUrl: './form-array-ng-model.component.html',
+  styleUrls: ['./form-array-ng-model.component.scss'],
+  standalone: true,
+  imports: [NzButtonModule, NzWaveModule, NgFor, FormArrayNgModelItemComponent],
 })
 export class FormArrayNgModelComponent implements OnInit, OnDestroy {
   data = userData;
   destroy$ = new Subject();
   private _ngFormService = inject(NgModelForm);
+  private _routerService = inject(RouterService);
 
   constructor(
     // private _ngFormService: NgModelForm,
@@ -30,6 +32,7 @@ export class FormArrayNgModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('pre router___', this._routerService.preUrl$.value);
     this._ngFormLengthService.setFormLength(3);
 
     this._ngFormService.isValidForm$

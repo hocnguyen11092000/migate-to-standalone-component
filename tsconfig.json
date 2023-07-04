@@ -2,6 +2,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -18,11 +21,14 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
-    "useDefineForClassFields": false
+    "lib": ["es2020", "dom"],
+    "useDefineForClassFields": false,
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@app/*": ["src/app/*"],
+      "ng-core": ["../../angular-build-lib/build-core/dist/my-lib"]
+    },
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

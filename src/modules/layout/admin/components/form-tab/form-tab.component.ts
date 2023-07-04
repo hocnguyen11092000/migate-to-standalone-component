@@ -30,7 +30,8 @@ import { NgIf, NgFor } from '@angular/common';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AuthService } from 'src/services/auth.service';
-
+import { Router } from '@angular/router';
+import { HeaderComponent } from 'ng-core';
 @Component({
   selector: 'app-form-tab',
   templateUrl: './form-tab.component.html',
@@ -44,6 +45,7 @@ import { AuthService } from 'src/services/auth.service';
     NgFor,
     FormTabItemComponent,
     TranslateModule,
+    HeaderComponent,
   ],
 })
 export class FormTabComponent implements OnInit {
@@ -57,6 +59,8 @@ export class FormTabComponent implements OnInit {
     private _formTabService: FormTabCheckValidAllField,
     private _formLength: FormLenghStervice
   ) {}
+
+  private _router = inject(Router);
 
   ngOnInit(): void {
     this._formLength.setFormLength(3);
@@ -169,5 +173,9 @@ export class FormTabComponent implements OnInit {
           }
         }
       });
+  }
+
+  navigate() {
+    this._router.navigate(['/admin/reactive-form-custom-validator']);
   }
 }

@@ -6,6 +6,8 @@
   </button>
 </div>
 
+<app-core-header></app-core-header>
+
 <ng-container *ngIf="data && data.length > 0">
   <nz-tabset [(nzSelectedIndex)]="selectedIndex">
     <ng-container *ngFor="let i of data">
