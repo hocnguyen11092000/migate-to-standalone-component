@@ -27,6 +27,77 @@
     </nz-form-control>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="errorTemplate">
+      <nz-input-group>
+        <input type="text" nz-input formControlName="test" placeholder="test" />
+      </nz-input-group>
+    </nz-form-control>
+    <button type="button" nz-button (click)="addValidator()">
+      add validator
+    </button>
+  </nz-form-item>
+
+  <h3>form group</h3>
+  <div formGroupName="group">
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="errorTemplate">
+        <nz-input-group>
+          <input
+            type="text"
+            nz-input
+            formControlName="group1"
+            placeholder="group1"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="errorTemplate">
+        <nz-input-group>
+          <input
+            type="text"
+            nz-input
+            formControlName="group2"
+            placeholder="group2"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <h3>form array</h3>
+  <ng-container *ngFor="let item of [1, 2]; index as i">
+    <ng-container formArrayName="array">
+      <div class="passenger-adults" [formGroupName]="i">
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="errorTemplate">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="a1"
+                placeholder="a1"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="errorTemplate">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="a2"
+                placeholder="a2"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </ng-container>
+  </ng-container>
+
   <button
     nz-button
     class="login-form-button login-form-margin"
@@ -39,6 +110,9 @@
 <ng-template #errorTemplate let-e>
   <ng-container *ngIf="e.hasError('required') || e.hasError('whitespace')">
     <div>Trường này không được để trống</div>
+  </ng-container>
+  <ng-container *ngIf="e.hasError('minlength')">
+    <div>min required</div>
   </ng-container>
 </ng-template>
 

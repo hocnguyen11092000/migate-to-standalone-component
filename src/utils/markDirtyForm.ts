@@ -9,9 +9,17 @@ import * as _ from 'lodash';
 export const markDirtyForm = (formInstant: FormGroup) => {
   _.forEach(_.values(formInstant.controls), (control: any) => {
     if (control.invalid) {
+      console.log('control', control);
+
       const _formArray = _.get(control, 'controls');
 
-      if (_formArray) {
+      if (control instanceof FormGroup) {
+        markDirtyForm(control);
+
+        return;
+      }
+
+      if (control instanceof FormArray) {
         markDirtyFormAray(_formArray);
       }
 
