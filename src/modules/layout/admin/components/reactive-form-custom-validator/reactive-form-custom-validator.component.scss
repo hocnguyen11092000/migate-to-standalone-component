@@ -1,0 +1,30 @@
+.test-validation-ng-model {
+  margin: 16px 0;
+  background-color: azure;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+// :host {
+//   ::ng-deep {
+//     .red-color {
+//       color: red !important;
+//     }
+//   }
+// }
+
+:host {
+  .red-color {
+    color: red !important;
+  }
+}
+
+// :host {
+.someClass {
+  // border: 1px solid blue;
+}
+// }
+
+.parent {
+  border: 1px solid blue;
+}

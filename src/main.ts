@@ -1,6 +1,6 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import { AngularFireModule } from '@angular/fire/compat';
 import { createTranslateLoader } from './app/app.module';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
@@ -32,6 +32,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
+      AngularFireModule.initializeApp(environment.firebase),
       BrowserModule,
       AppRoutingModule,
       FormsModule,

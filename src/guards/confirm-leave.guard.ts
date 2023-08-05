@@ -28,7 +28,7 @@ export class CanDeactivateConfirmLeave implements CanDeactivate<any> {
       // return window.confirm(
       //   'We realize there was a change, are you sure you want to leave?'
       // );
-      component?.navigate();
+      // component?.navigate();
       return false;
     } else {
       return true;

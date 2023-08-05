@@ -27,7 +27,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { CanDeactivateConfirmLeave } from 'src/guards/confirm-leave.guard';
 import { NgModelForm } from './components/form-array-ng-model/services/ng-model-form.service';
 import { NgFormLength } from './components/form-array-ng-model/services/ng-form-length.service';
-import { HeaderComponent } from 'ng-core';
+import { HeaderComponent, MyLibModule, TrimDirective } from 'ng-core';
 //#endregion guard
 
 const routes: Routes = [
@@ -96,6 +96,8 @@ const routes: Routes = [
 
     //#region core
     // HeaderComponent,
+    // TrimDirective,
+    MyLibModule,
     //#endregion core
   ],
   exports: [RouterModule],
@@ -110,5 +112,6 @@ const routes: Routes = [
     //   },
     // },
   ],
+  declarations: [],
 })
 export class AdminModule {}

@@ -1,8 +1,10 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import * as _ from 'lodash';
+import { BehaviorSubject } from 'rxjs';
 
 let timer: any;
+let timer2: any;
 
 @Directive({
   selector: '[UpercaseText]',
@@ -19,6 +21,9 @@ export class UpercaseTextDirective {
   @Input('removeSpace') removeSpace: boolean = false;
   isSpace = false;
 
+  a = new BehaviorSubject('');
+  _isVn = false;
+
   constructor(private ref: ElementRef, private readonly control: NgControl) {}
 
   @HostListener('input')
@@ -31,6 +36,7 @@ export class UpercaseTextDirective {
   // }
 
   toUpperCase() {
+    this._isVn = false;
     try {
       const selectionStart = this.ref.nativeElement.selectionStart;
       this.ref.nativeElement.value = this.allowUpperCase
@@ -38,24 +44,27 @@ export class UpercaseTextDirective {
         : this.lowerCase
         ? this.ref.nativeElement.value.toLowerCase()
         : this.ref.nativeElement.value;
-      if (this.removeVNTones) {
-        this.removeVietnameseTones(this.ref.nativeElement.value);
-      }
+      // if (this.removeVNTones) {
+      //   this.removeVietnameseTones(this.ref.nativeElement.value);
+      // }
 
       this.ref.nativeElement.setSelectionRange(selectionStart, selectionStart);
       if (this.control && this.control.control) {
         if (this.removeVNTones) {
-          this.control.control.setValue(
-            this.allowUpperCase
-              ? this.removeVietnameseTones(
-                  this.ref.nativeElement.value.toUpperCase()
-                )
-              : this.lowerCase
-              ? this.removeVietnameseTones(
-                  this.ref.nativeElement.value.toLowerCase()
-                )
-              : this.removeVietnameseTones(this.ref.nativeElement.value)
-          );
+          if (timer2) clearTimeout(timer2);
+          timer2 = setTimeout(() => {
+            this?.control?.control?.setValue(
+              this.allowUpperCase
+                ? this.removeVietnameseTones(
+                    this.ref.nativeElement.value.toUpperCase()
+                  )
+                : this.lowerCase
+                ? this.removeVietnameseTones(
+                    this.ref.nativeElement.value.toLowerCase()
+                  )
+                : this.removeVietnameseTones(this.ref.nativeElement.value)
+            );
+          }, 0);
           this.control.control.updateValueAndValidity();
           return;
         }
@@ -73,6 +82,7 @@ export class UpercaseTextDirective {
 
   removeVietnameseTones(str: string) {
     const _start = this.ref.nativeElement.selectionStart;
+    console.log('__string here', str);
 
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
     str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
@@ -89,13 +99,13 @@ export class UpercaseTextDirective {
     str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, 'Y');
     str = str.replace(/Đ/g, 'D');
 
+    this.a.next(str);
+
     str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ''); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
     str = str.replace(/\u02C6|\u0306|\u031B/g, ''); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
     if (this.removeSpace) {
       if (this.ref.nativeElement.value.includes(' ')) {
         this.isSpace = true;
-        console.log('__run');
-
         str = str.replace(/\s/g, '');
       }
     }
@@ -109,12 +119,12 @@ export class UpercaseTextDirective {
       } else {
         this.ref.nativeElement.setSelectionRange(_start, _start);
       }
-    }, 0);
+    }, 50);
 
     // Bỏ dấu câu, kí tự đặc biệt
     if (this.removeSpecialCharactor) {
       str = str.replace(
-        /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
+        /!|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
         ''
       );
 
@@ -146,7 +156,9 @@ export class UpercaseTextDirective {
       str = str.replace(/\.+/g, '.');
     }
 
-    return str;
+    // console.log('tèo __', this.a.value);
+
+    return this._isVn ? this.a.value : str;
   }
 
   private replaceWorkInArr(

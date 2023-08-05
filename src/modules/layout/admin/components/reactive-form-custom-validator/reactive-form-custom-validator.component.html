@@ -27,6 +27,77 @@
     </nz-form-control>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="errorTemplate">
+      <nz-input-group>
+        <input type="text" nz-input formControlName="test" placeholder="test" />
+      </nz-input-group>
+    </nz-form-control>
+    <button type="button" nz-button (click)="addValidator()">
+      add validator
+    </button>
+  </nz-form-item>
+
+  <h3>form group</h3>
+  <div formGroupName="group">
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="errorTemplate">
+        <nz-input-group>
+          <input
+            type="text"
+            nz-input
+            formControlName="group1"
+            placeholder="group1"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="errorTemplate">
+        <nz-input-group>
+          <input
+            type="text"
+            nz-input
+            formControlName="group2"
+            placeholder="group2"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <h3>form array</h3>
+  <ng-container *ngFor="let item of [1, 2]; index as i">
+    <ng-container formArrayName="array">
+      <div class="passenger-adults" [formGroupName]="i">
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="errorTemplate">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="a1"
+                placeholder="a1"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="errorTemplate">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="a2"
+                placeholder="a2"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </ng-container>
+  </ng-container>
+
   <button
     nz-button
     class="login-form-button login-form-margin"
@@ -39,6 +110,9 @@
 <ng-template #errorTemplate let-e>
   <ng-container *ngIf="e.hasError('required') || e.hasError('whitespace')">
     <div>Trường này không được để trống</div>
+  </ng-container>
+  <ng-container *ngIf="e.hasError('minlength')">
+    <div>min required</div>
   </ng-container>
 </ng-template>
 
@@ -54,3 +128,66 @@
   nz-input
 />
 <span>{{ value }}</span>
+<div>---------- test ng tempate -----------</div>
+
+<app-test-ng-template [errorTip]="error"></app-test-ng-template>
+
+<ng-template #error let-error>
+  <div>template error</div>
+  <div>{{ error | json }}</div>
+</ng-template>
+
+<div
+  *nzStringTemplateOutlet="
+    customError;
+    context: { $implicit: 'validateControl' }
+  "
+>
+  customError string
+</div>
+<button (click)="count = count + 1">test {{ count }}</button>
+
+<ng-template #customError let-c>
+  <div>custom error template context: {{ c }}</div>
+</ng-template>
+
+<div class="test-validation-ng-model">
+  <h3>custom validation ng model</h3>
+
+  <form #test="ngForm" (ngSubmit)="testFormSubmit(test)">
+    <nz-form-item>
+      <nz-form-control nzHasFeedback [nzErrorTip]="templateErrorNgModel">
+        <input
+          nz-input
+          name="upercase"
+          #upercase="ngModel"
+          appUpercaseValidation
+          type="text"
+          placeholder="validate upercase text"
+          [(ngModel)]="upercaseText"
+        />
+
+        {{ upercase.errors | json }}
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button>submit</button>
+  </form>
+</div>
+
+<ng-template #templateErrorNgModel let-control>
+  <div *ngIf="control.hasError('notUpercaseText')">
+    Vui lòng nhập chữ in hoa
+  </div>
+</ng-template>
+<h3>custom control value assesor</h3>
+
+<div class="red-color">
+  <form [formGroup]="customForm">
+    <app-custom-control-value-assesor
+      formControlName="customControl"
+      class="parent"
+    ></app-custom-control-value-assesor>
+
+    {{ customForm.value | json }}
+  </form>
+</div>
