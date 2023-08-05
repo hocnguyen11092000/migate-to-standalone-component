@@ -31,12 +31,13 @@ import {
 } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RouterService } from 'src/services/pre-router.service';
+import { MessagingService } from 'src/services/fire-messaging.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [RouterOutlet],
 })
@@ -51,12 +52,14 @@ export class AppComponent implements OnInit {
   //     this._router.navigateByUrl('admin/reactive-form-custom-validator');
   //   }, 300);
   // }
+  message: any;
 
   constructor(
     private _translateCoreService: TranslateCoreService,
     private _testService: TestService,
     private _cdr: ChangeDetectorRef,
-    private _router: Router
+    private _router: Router,
+    private messagingService: MessagingService
   ) {
     _router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -70,6 +73,10 @@ export class AppComponent implements OnInit {
   private _routerService = inject(RouterService);
 
   ngOnInit(): void {
+    // this.messagingService.requestPermission();
+    // this.messagingService.receiveMessage();
+    // this.message = this.messagingService.currentMessage;
+
     console.log('pre router___', this._routerService.preUrl$.value);
 
     this._http

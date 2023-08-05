@@ -1,0 +1,9 @@
+.red-color {
+  color: blue;
+}
+
+.custom {
+  :host-context(.parent) & {
+    background-color: gray;
+  }
+}

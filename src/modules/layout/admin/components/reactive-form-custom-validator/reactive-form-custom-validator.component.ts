@@ -1,5 +1,6 @@
 import {
   Component,
+  HostBinding,
   Inject,
   InjectionToken,
   OnInit,
@@ -14,12 +15,13 @@ import {
   ReactiveFormsModule,
   FormsModule,
   FormControl,
+  NgForm,
 } from '@angular/forms';
 import { markDirtyForm } from 'src/utils';
 import { NoWhitespaceValidator } from './validator/validator.no-white-space';
 import { Observable, map, of, switchMap, timer } from 'rxjs';
 import { ApiService } from './services/api.service';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -27,13 +29,17 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { UpercaseTextDirective } from './directives/upercase.directive';
 import { TestProviderService } from './services/test.service';
+import { TestNgTemplateComponent } from './components/test-ng-template/test-ng-template.component';
+import { StringTemplateOutletDirective } from './directives/string-template-outlet.directive';
+import { CustomVaidatorDirective } from './directives/validate-upercase.directive';
+import { CustomControlValueAssesorComponent } from './components/custom-control-value-assesor/custom-control-value-assesor.component';
 
 export const token = new InjectionToken('token');
 
 @Component({
   selector: 'app-reactive-form-custom-validator',
   templateUrl: './reactive-form-custom-validator.component.html',
-  styleUrls: ['./reactive-form-custom-validator.component.css'],
+  styleUrls: ['./reactive-form-custom-validator.component.scss'],
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -46,6 +52,11 @@ export const token = new InjectionToken('token');
     FormsModule,
     UpercaseTextDirective,
     NgFor,
+    TestNgTemplateComponent,
+    CommonModule,
+    StringTemplateOutletDirective,
+    CustomVaidatorDirective,
+    CustomControlValueAssesorComponent,
   ],
   providers: [
     // {
@@ -60,9 +71,13 @@ export const token = new InjectionToken('token');
 })
 export class ReactiveFormCustomValidatorComponent implements OnInit {
   value = '';
+  count = 0;
+  customError = 'string';
+  upercaseText = '';
   // private _test = inject(token);
 
   authForm!: FormGroup;
+  customForm!: FormGroup;
   constructor(
     private _fb: FormBuilder,
     private _api: ApiService,
@@ -72,6 +87,10 @@ export class ReactiveFormCustomValidatorComponent implements OnInit {
   ngOnInit() {
     this.initAuthForm();
     console.log(this._test);
+
+    this.customForm = this._fb.group({
+      customControl: ['lucy'],
+    });
   }
 
   private initAuthForm() {
@@ -133,5 +152,9 @@ export class ReactiveFormCustomValidatorComponent implements OnInit {
 
     // call this function because the angular app need a signal when you add validation
     _testControl.updateValueAndValidity({ onlySelf: false });
+  }
+
+  testFormSubmit(form: NgForm) {
+    console.log(form.form);
   }
 }
