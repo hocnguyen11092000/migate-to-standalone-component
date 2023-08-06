@@ -8,7 +8,7 @@
         routerLinkActive="admin-active-link"
         routerLink="form-tab"
       >
-        Form tab
+        tab
       </li>
       <li
         class="header-list__item"
@@ -16,7 +16,7 @@
         routerLinkActive="admin-active-link"
         routerLink="form-array-reactive"
       >
-        Form array (reactive form)
+        array (reactive form)
       </li>
       <li
         class="header-list__item"
@@ -24,7 +24,7 @@
         routerLinkActive="admin-active-link"
         routerLink="form-array-ng-model"
       >
-        Form array (ng model)
+        array (ng model)
       </li>
       <li
         class="header-list__item"
@@ -32,7 +32,15 @@
         routerLinkActive="admin-active-link"
         routerLink="reactive-form-custom-validator"
       >
-        Reactive form custom validator
+        validator
+      </li>
+      <li
+        class="header-list__item"
+        [routerLinkActiveOptions]="{ exact: false }"
+        routerLinkActive="admin-active-link"
+        routerLink="reactive-form-custom-add"
+      >
+        custom add
       </li>
     </ul>
     <div class="header-langs">

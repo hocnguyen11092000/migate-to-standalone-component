@@ -28,6 +28,7 @@ import { CanDeactivateConfirmLeave } from 'src/guards/confirm-leave.guard';
 import { NgModelForm } from './components/form-array-ng-model/services/ng-model-form.service';
 import { NgFormLength } from './components/form-array-ng-model/services/ng-form-length.service';
 import { HeaderComponent, MyLibModule, TrimDirective } from 'ng-core';
+import { FormTabCustomAddDeleteComponent } from './components/form-tab-custom-add-delete/form-tab-custom-add-delete.component';
 //#endregion guard
 
 const routes: Routes = [
@@ -56,6 +57,10 @@ const routes: Routes = [
       {
         path: 'reactive-form-custom-validator',
         component: ReactiveFormCustomValidatorComponent,
+      },
+      {
+        path: 'reactive-form-custom-add',
+        component: FormTabCustomAddDeleteComponent,
       },
       {
         path: '',
@@ -112,6 +117,6 @@ const routes: Routes = [
     //   },
     // },
   ],
-  declarations: [],
+  declarations: [FormTabCustomAddDeleteComponent],
 })
 export class AdminModule {}
