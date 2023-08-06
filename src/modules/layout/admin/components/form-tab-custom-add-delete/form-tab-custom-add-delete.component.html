@@ -1,0 +1,111 @@
+<h2>custom add, remove form</h2>
+
+<form [formGroup]="testForm" (ngSubmit)="handleSubmit()">
+  <br />
+  <button type="button" nz-button (click)="addTestForm()">add a</button>
+  <nz-tabset>
+    <ng-container formArrayName="item">
+      <ng-container *ngFor="let item of getTestFormItem() as any; index as i">
+        <div [formGroupName]="i">
+          <nz-tab [nzTitle]="'tab a' + i">
+            <ng-template nz-tab>
+              <button type="button" nz-button (click)="addBControl(i)">
+                add b
+              </button>
+              <br />
+              <br />
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzErrorTip]="errorTemplate">
+                  <input
+                    nz-input
+                    type="text"
+                    formControlName="a1"
+                    placeholder="a1"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-tabset>
+                <ng-container *ngIf="getbFormControl(i)">
+                  <ng-container formArrayName="a2">
+                    <ng-container
+                      *ngFor="
+                        let a2item of getbFormControl(i) as any;
+                        index as b
+                      "
+                    >
+                      <div [formGroupName]="b">
+                        <nz-tab [nzTitle]="'tab b' + b">
+                          <button
+                            type="button"
+                            nz-button
+                            (click)="addCControl(i, b)"
+                          >
+                            add c
+                          </button>
+                          <br /><br />
+                          <nz-form-item>
+                            <nz-form-control
+                              nzHasFeedback
+                              [nzErrorTip]="errorTemplate"
+                            >
+                              <input
+                                nz-input
+                                type="text"
+                                formControlName="b1"
+                                placeholder="b1"
+                              />
+                            </nz-form-control>
+                          </nz-form-item>
+                          <nz-tabset>
+                            <ng-container *ngIf="getCControl(i, b)">
+                              <ng-container formArrayName="b2">
+                                <ng-container
+                                  *ngFor="
+                                    let a2item of getCControl(i, b) as any;
+                                    index as c
+                                  "
+                                >
+                                  <div [formGroupName]="c">
+                                    <nz-tab [nzTitle]="'tab c' + c">
+                                      <nz-form-item>
+                                        <nz-form-control
+                                          nzHasFeedback
+                                          [nzErrorTip]="errorTemplate"
+                                        >
+                                          <input
+                                            nz-input
+                                            type="text"
+                                            formControlName="c1"
+                                            placeholder="c1"
+                                          />
+                                        </nz-form-control>
+                                      </nz-form-item>
+                                    </nz-tab>
+                                  </div>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </nz-tabset>
+                        </nz-tab>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </nz-tabset>
+            </ng-template>
+          </nz-tab>
+        </div>
+      </ng-container>
+    </ng-container>
+  </nz-tabset>
+  <button nz-button [nzType]="'primary'">Submit</button>
+</form>
+
+<ng-template #errorTemplate let-control>
+  <ng-container *ngIf="testForm.invalid">
+    <span *ngIf="control?.hasError('required')"
+      >Trường này không được để trống</span
+    >
+  </ng-container>
+  <span></span>
+</ng-template>
