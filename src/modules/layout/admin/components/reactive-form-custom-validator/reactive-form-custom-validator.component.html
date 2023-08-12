@@ -39,7 +39,7 @@
   </nz-form-item>
 
   <h3>form group</h3>
-  <div formGroupName="group">
+  <!-- <div formGroupName="group">
     <nz-form-item>
       <nz-form-control [nzErrorTip]="errorTemplate">
         <nz-input-group>
@@ -64,10 +64,10 @@
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-  </div>
+  </div> -->
 
   <h3>form array</h3>
-  <ng-container *ngFor="let item of [1, 2]; index as i">
+  <!-- <ng-container *ngFor="let item of [1, 2]; index as i">
     <ng-container formArrayName="array">
       <div class="passenger-adults" [formGroupName]="i">
         <nz-form-item>
@@ -96,15 +96,18 @@
         </nz-form-item>
       </div>
     </ng-container>
-  </ng-container>
+  </ng-container> -->
 
   <button
     nz-button
     class="login-form-button login-form-margin"
     [nzType]="'primary'"
+    [disabled]="!this.authForm.valid"
   >
     Submit
   </button>
+
+  {{ this.authForm.valid }}
 </form>
 
 <ng-template #errorTemplate let-e>
@@ -113,6 +116,9 @@
   </ng-container>
   <ng-container *ngIf="e.hasError('minlength')">
     <div>min required</div>
+  </ng-container>
+  <ng-container *ngIf="e.hasError('duplicate')">
+    <div>duplicated value</div>
   </ng-container>
 </ng-template>
 
@@ -184,10 +190,11 @@
 <div class="red-color">
   <form [formGroup]="customForm">
     <app-custom-control-value-assesor
+      [appearance]="'solid'"
       formControlName="customControl"
       class="parent"
     ></app-custom-control-value-assesor>
 
-    {{ customForm.value | json }}
+    <!-- {{ customForm.value | json }} -->
   </form>
 </div>

@@ -19,7 +19,7 @@ import {
 } from '@angular/forms';
 import { markDirtyForm } from 'src/utils';
 import { NoWhitespaceValidator } from './validator/validator.no-white-space';
-import { Observable, map, of, switchMap, timer } from 'rxjs';
+import { Observable, delay, iif, map, of, switchMap, timer } from 'rxjs';
 import { ApiService } from './services/api.service';
 import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
@@ -33,6 +33,8 @@ import { TestNgTemplateComponent } from './components/test-ng-template/test-ng-t
 import { StringTemplateOutletDirective } from './directives/string-template-outlet.directive';
 import { CustomVaidatorDirective } from './directives/validate-upercase.directive';
 import { CustomControlValueAssesorComponent } from './components/custom-control-value-assesor/custom-control-value-assesor.component';
+import { DirectiveCompositionApiDirective } from './directives/directive-composition-api.directive';
+import _ from 'lodash';
 
 export const token = new InjectionToken('token');
 
@@ -68,6 +70,12 @@ export const token = new InjectionToken('token');
       useClass: TestProviderService,
     },
   ],
+  hostDirectives: [
+    {
+      directive: DirectiveCompositionApiDirective,
+      inputs: ['appearance'],
+    },
+  ],
 })
 export class ReactiveFormCustomValidatorComponent implements OnInit {
   value = '';
@@ -86,36 +94,37 @@ export class ReactiveFormCustomValidatorComponent implements OnInit {
 
   ngOnInit() {
     this.initAuthForm();
-    console.log(this._test);
+    // console.log(this._test);
 
     this.customForm = this._fb.group({
       customControl: ['lucy'],
     });
   }
 
-  private initAuthForm() {
+  initAuthForm() {
     this.authForm = this._fb.group({
       userName: [
         '',
-        Validators.compose([Validators.required, NoWhitespaceValidator()]),
-        this.validateUserNameFromAPIDebounce.bind(this),
+        [Validators.required],
+
+        // [this.validateUserNameFromAPIDebounce.bind(this)],
       ],
-      password: ['', Validators.compose([Validators.required])],
-      test: ['', [Validators.required]],
-      group: this._fb.group({
-        group1: ['', [Validators.required]],
-        group2: ['', [Validators.required]],
-      }),
-      array: this._fb.array([
-        this._fb.group({
-          a1: ['', Validators.required],
-          a2: ['', Validators.required],
-        }),
-        this._fb.group({
-          a1: ['', Validators.required],
-          a2: ['', Validators.required],
-        }),
-      ]),
+      password: ['', [Validators.required]],
+      test: ['', [Validators.required], [this.validateDuplicate.bind(this)]],
+      // group: this._fb.group({
+      //   group1: ['', [Validators.required]],
+      //   group2: ['', [Validators.required]],
+      // }),
+      // array: this._fb.array([
+      //   this._fb.group({
+      //     a1: ['', Validators.required],
+      //     a2: ['', Validators.required],
+      //   }),
+      //   this._fb.group({
+      //     a1: ['', Validators.required],
+      //     a2: ['', Validators.required],
+      //   }),
+      // ]),
     });
   }
 
@@ -155,6 +164,22 @@ export class ReactiveFormCustomValidatorComponent implements OnInit {
   }
 
   testFormSubmit(form: NgForm) {
-    console.log(form.form);
+    // console.log(form.form);
+  }
+
+  validateDuplicate(control: AbstractControl): any {
+    const _value = _.get(control, 'value');
+    const _formValue = _.get(this.authForm, 'value');
+
+    return of(_value).pipe(
+      delay(500),
+      switchMap(() => {
+        const isDuplicate =
+          _.size(_.intersection(_.values(_formValue), [_value])) > 0;
+        console.log(_.intersection(_.values(_formValue), [_value]));
+
+        return iif(() => isDuplicate, of({ duplicate: true }), of(null));
+      })
+    );
   }
 }

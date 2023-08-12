@@ -29,6 +29,7 @@ import { NgModelForm } from './components/form-array-ng-model/services/ng-model-
 import { NgFormLength } from './components/form-array-ng-model/services/ng-form-length.service';
 import { HeaderComponent, MyLibModule, TrimDirective } from 'ng-core';
 import { FormTabCustomAddDeleteComponent } from './components/form-tab-custom-add-delete/form-tab-custom-add-delete.component';
+import { TestComponent } from './components/form-tab-custom-add-delete/components/test/test.component';
 //#endregion guard
 
 const routes: Routes = [
@@ -117,6 +118,6 @@ const routes: Routes = [
     //   },
     // },
   ],
-  declarations: [FormTabCustomAddDeleteComponent],
+  declarations: [FormTabCustomAddDeleteComponent, TestComponent],
 })
 export class AdminModule {}

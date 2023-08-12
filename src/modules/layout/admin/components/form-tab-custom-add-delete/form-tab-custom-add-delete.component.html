@@ -1,5 +1,7 @@
 <h2>custom add, remove form</h2>
 
+<app-test [data]="'123'"></app-test>
+
 <form [formGroup]="testForm" (ngSubmit)="handleSubmit()">
   <br />
   <button type="button" nz-button (click)="addTestForm()">add a</button>

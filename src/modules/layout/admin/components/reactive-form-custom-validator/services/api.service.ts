@@ -13,7 +13,7 @@ export class ApiService {
       debounceTime(500),
       delay(1000),
       tap(() => {
-        console.log(`Trigger API call ${username}`);
+        // console.log(`Trigger API call ${username}`);
       })
     );
   }

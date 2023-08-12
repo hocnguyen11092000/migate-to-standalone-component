@@ -24,10 +24,17 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AuthInterceptor } from './services/intercepter.service';
+import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 
 if (environment.production) {
   enableProdMode();
 }
+
+const ngZorroConfig: NzConfig = {
+  theme: {
+    primaryColor: '#c69',
+  },
+};
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -54,5 +61,6 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig },
   ],
 }).catch((err) => console.error(err));
