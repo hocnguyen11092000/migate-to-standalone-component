@@ -32,6 +32,10 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { RouterService } from 'src/services/pre-router.service';
 import { MessagingService } from 'src/services/fire-messaging.service';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { FormsModule } from '@angular/forms';
+import { NzConfigService } from 'ng-zorro-antd/core/config';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -39,11 +43,12 @@ import { MessagingService } from 'src/services/fire-messaging.service';
   styleUrls: ['./app.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NzSelectModule, FormsModule, CommonModule],
 })
 export class AppComponent implements OnInit {
   title = 'submit-mutiple-form';
   loadingg = false;
+  theme = '#F11A7B';
 
   // @HostListener('window:popstate', ['$event'])
   // onPopState(event: any) {
@@ -59,7 +64,8 @@ export class AppComponent implements OnInit {
     private _testService: TestService,
     private _cdr: ChangeDetectorRef,
     private _router: Router,
-    private messagingService: MessagingService
+    private messagingService: MessagingService,
+    private nzConfigService: NzConfigService
   ) {
     _router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -79,13 +85,13 @@ export class AppComponent implements OnInit {
 
     console.log('pre router___', this._routerService.preUrl$.value);
 
-    this._http
-      .get('https://649462370da866a95367ab9e.mockapi.io/category')
-      .subscribe(console.log);
+    // this._http
+    //   .get('https://649462370da866a95367ab9e.mockapi.io/category')
+    //   .subscribe(console.log);
 
-    this._http
-      .get('https://649462370da866a95367ab9e.mockapi.io/login')
-      .subscribe(console.log);
+    // this._http
+    //   .get('https://649462370da866a95367ab9e.mockapi.io/login')
+    //   .subscribe(console.log);
 
     this._translateCoreService.initCoreTranslate();
 
@@ -115,5 +121,11 @@ export class AppComponent implements OnInit {
 
   handleKeyUp(event: any) {
     this._testService.setInputValue(event.target.value);
+  }
+
+  handleChangeTheme(theme: string) {
+    this.nzConfigService.set('theme', {
+      primaryColor: theme,
+    });
   }
 }

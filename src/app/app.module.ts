@@ -19,9 +19,10 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MyMissingTranslationHandler } from 'src/services/missingTranslate.service';
 
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 registerLocaleData(en);
-

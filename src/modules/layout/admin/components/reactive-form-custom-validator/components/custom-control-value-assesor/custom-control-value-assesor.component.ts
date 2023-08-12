@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { DirectiveCompositionApiDirective } from '../../directives/directive-composition-api.directive';
 
 @Component({
   selector: 'app-custom-control-value-assesor',
@@ -15,6 +16,12 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     },
   ],
   imports: [NzSelectModule, FormsModule],
+  hostDirectives: [
+    {
+      directive: DirectiveCompositionApiDirective,
+      inputs: ['appearance'],
+    },
+  ],
 })
 export class CustomControlValueAssesorComponent implements OnInit {
   value = '';
