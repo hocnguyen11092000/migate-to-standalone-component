@@ -1,6 +1,10 @@
 <h2>custom add, remove form</h2>
 
-<app-test [data]="'123'"></app-test>
+<ng-container *ngIf="show">
+  <app-test #test [data]="'123'"></app-test>
+</ng-container>
+
+<button nz-button (click)="show = !show">toggle show</button>
 
 <form [formGroup]="testForm" (ngSubmit)="handleSubmit()">
   <br />

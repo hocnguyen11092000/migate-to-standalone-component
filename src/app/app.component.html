@@ -7,6 +7,26 @@
   </div>
 </div>
 
+<ul>
+  <cdk-virtual-scroll-viewport
+    #CdkVirtualScrollViewport
+    appendOnly
+    itemSize="100"
+    class="example-viewport"
+  >
+    <li
+      *cdkVirtualFor="let item of data; index as idx; odd as odd"
+      [class.odd]="odd"
+      class="example-item"
+    >
+      {{ item.title + "__ " + idx }}
+    </li>
+    <div style="margin: 20px 0; text-align: center">
+      {{ (_loading | async) ? "loading..." : "" }}
+    </div>
+  </cdk-virtual-scroll-viewport>
+</ul>
+
 <div style="text-align: center">
   <nz-select
     [nzOptionHeightPx]="60"

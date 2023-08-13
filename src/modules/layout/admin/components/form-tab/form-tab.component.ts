@@ -32,6 +32,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AuthService } from 'src/services/auth.service';
 import { Router } from '@angular/router';
 import { HeaderComponent } from 'ng-core';
+import { FormTabCustomAddDeleteComponent } from '../form-tab-custom-add-delete/form-tab-custom-add-delete.component';
 @Component({
   selector: 'app-form-tab',
   templateUrl: './form-tab.component.html',
@@ -47,6 +48,7 @@ import { HeaderComponent } from 'ng-core';
     TranslateModule,
     HeaderComponent,
   ],
+  providers: [FormTabCustomAddDeleteComponent],
 })
 export class FormTabComponent implements OnInit {
   data: any = formTabData;
@@ -54,6 +56,10 @@ export class FormTabComponent implements OnInit {
   selectedIndex = 0;
   isChanging = false;
   private _auth = inject(AuthService);
+
+  //#region inject service
+  private _formCustomAddDelete = inject(FormTabCustomAddDeleteComponent);
+  //#endregion inject service
 
   constructor(
     private _formTabService: FormTabCheckValidAllField,
@@ -63,6 +69,8 @@ export class FormTabComponent implements OnInit {
   private _router = inject(Router);
 
   ngOnInit(): void {
+    console.log('form tab ', this._formCustomAddDelete.counter);
+
     this._formLength.setFormLength(3);
 
     if (!_.isEmpty(this.data)) {

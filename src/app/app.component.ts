@@ -1,9 +1,11 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   HostListener,
   OnInit,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +22,14 @@ import {
   finalize,
   pairwise,
   take,
+  BehaviorSubject,
+  combineLatest,
+  map,
+  Observable,
+  auditTime,
+  throttleTime,
+  concatMap,
+  Subject,
 } from 'rxjs';
 import { TestService } from 'src/services/test.service';
 import { TranslateCoreService } from 'src/services/translate.service';
@@ -36,6 +46,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { CommonModule } from '@angular/common';
+import {
+  CdkVirtualScrollViewport,
+  ScrollingModule,
+} from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-root',
@@ -43,12 +57,48 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [RouterOutlet, NzSelectModule, FormsModule, CommonModule],
+  imports: [
+    RouterOutlet,
+    NzSelectModule,
+    FormsModule,
+    CommonModule,
+    ScrollingModule,
+  ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+  data: any = [];
+  ngAfterViewInit(): void {
+    this.cdkVirtualScrollViewport.scrolledIndexChange
+      .pipe(
+        skipWhile((index: number) => index <= 0),
+        auditTime(120),
+        tap(() => {
+          const _elm = this.cdkVirtualScrollViewport.elementRef
+            .nativeElement as HTMLElement;
+
+          const _scrollHeight = _elm.scrollHeight;
+          const _scrollTop = (_elm.scrollTop + 2000).toFixed(0);
+
+          console.dir(_elm);
+          console.log(_scrollHeight, _scrollTop);
+
+          if (+_scrollTop > +_scrollHeight) {
+            this._start.next(this._start.value + 30);
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  @ViewChild(CdkVirtualScrollViewport)
+  cdkVirtualScrollViewport!: CdkVirtualScrollViewport;
+
   title = 'submit-mutiple-form';
   loadingg = false;
   theme = '#F11A7B';
+  _start = new BehaviorSubject(0);
+  _limit = new BehaviorSubject(20);
+  _loading = new Subject<boolean>();
 
   // @HostListener('window:popstate', ['$event'])
   // onPopState(event: any) {
@@ -58,6 +108,7 @@ export class AppComponent implements OnInit {
   //   }, 300);
   // }
   message: any;
+  vm$!: Observable<any>;
 
   constructor(
     private _translateCoreService: TranslateCoreService,
@@ -85,13 +136,26 @@ export class AppComponent implements OnInit {
 
     console.log('pre router___', this._routerService.preUrl$.value);
 
-    // this._http
-    //   .get('https://649462370da866a95367ab9e.mockapi.io/category')
-    //   .subscribe(console.log);
+    combineLatest([this._start, this._limit])
+      .pipe(
+        map(([_start, _limit]) => ({ _start, _limit })),
+        concatMap((_params: any) => {
+          this._loading.next(true);
 
-    // this._http
-    //   .get('https://649462370da866a95367ab9e.mockapi.io/login')
-    //   .subscribe(console.log);
+          return this._http
+            .get('https://jsonplaceholder.typicode.com/photos', {
+              params: _params,
+            })
+            .pipe(
+              finalize(() => {
+                this._loading.next(false);
+              })
+            );
+        })
+      )
+      .subscribe((val: any) => {
+        this.data = [...this.data, ...val];
+      });
 
     this._translateCoreService.initCoreTranslate();
 

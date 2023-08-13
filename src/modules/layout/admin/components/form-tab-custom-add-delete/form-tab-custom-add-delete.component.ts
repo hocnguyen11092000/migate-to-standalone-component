@@ -1,8 +1,11 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   OnInit,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,21 +16,37 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./form-tab-custom-add-delete.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormTabCustomAddDeleteComponent implements OnInit {
+export class FormTabCustomAddDeleteComponent implements OnInit, AfterViewInit {
   //#region inject service
   private _fb = inject(FormBuilder);
   private _cdr = inject(ChangeDetectorRef);
   //#endregion inject service
 
+  //#region view child
+  @ViewChild('test') testCopm!: ElementRef;
+  //#endregion view child
+
   //#region variables
   testForm!: FormGroup;
   //#endregion variables
+  counter = 0;
+  show = false;
   constructor() {}
 
   ngOnInit() {
     this.initCoreForm();
-
     this.addTestForm();
+    setTimeout(() => {
+      this.show = true;
+      this._cdr.detectChanges();
+      console.log('test__', this.testCopm);
+    }, 100);
+
+    // console.log('test__', this.testCopm);
+  }
+
+  ngAfterViewInit(): void {
+    console.log('test__', this.testCopm);
   }
 
   initCoreForm() {
