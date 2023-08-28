@@ -1,0 +1,17 @@
+<p>custom-control-value-assesor works!</p>
+
+<input nz-input type="text" placeholder="input..." [formControl]="query" />
+
+<ng-container *ngIf="query?.hasWarning()">
+  <div class="warning">
+    {{ query?.warning?.length }}
+  </div>
+</ng-container>
+{{ query?.hasError("required") }}
+{{ query?.status }}
+<br />
+<hr />
+<app-rate [formControl]="rate"></app-rate>
+<br />
+<span>rank selected: </span>
+{{ rate.value | json }}

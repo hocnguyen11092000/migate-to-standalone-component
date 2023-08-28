@@ -68,6 +68,10 @@ import {
 export class AppComponent implements OnInit, AfterViewInit {
   data: any = [];
   ngAfterViewInit(): void {
+    window.scrollTo({
+      top: 0,
+    });
+
     this.cdkVirtualScrollViewport.scrolledIndexChange
       .pipe(
         skipWhile((index: number) => index <= 0),

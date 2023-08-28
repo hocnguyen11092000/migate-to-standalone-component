@@ -4,7 +4,7 @@
     <ul class="header-list">
       <li
         class="header-list__item"
-        [routerLinkActiveOptions]="{ exact: false }"
+        [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="admin-active-link"
         routerLink="form-tab"
       >
@@ -12,15 +12,15 @@
       </li>
       <li
         class="header-list__item"
-        [routerLinkActiveOptions]="{ exact: false }"
+        [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="admin-active-link"
         routerLink="form-array-reactive"
       >
-        array (reactive form)
+        array (reactive)
       </li>
       <li
         class="header-list__item"
-        [routerLinkActiveOptions]="{ exact: false }"
+        [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="admin-active-link"
         routerLink="form-array-ng-model"
       >
@@ -28,7 +28,7 @@
       </li>
       <li
         class="header-list__item"
-        [routerLinkActiveOptions]="{ exact: false }"
+        [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="admin-active-link"
         routerLink="reactive-form-custom-validator"
       >
@@ -36,11 +36,27 @@
       </li>
       <li
         class="header-list__item"
-        [routerLinkActiveOptions]="{ exact: false }"
+        [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="admin-active-link"
         routerLink="reactive-form-custom-add"
       >
         custom add
+      </li>
+      <li
+        class="header-list__item"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="admin-active-link"
+        routerLink="proxy"
+      >
+        proxy
+      </li>
+      <li
+        class="header-list__item"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="admin-active-link"
+        routerLink="custom-control"
+      >
+        custom control
       </li>
     </ul>
     <div class="header-langs">

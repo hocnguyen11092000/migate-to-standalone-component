@@ -1,33 +1,4 @@
-<div class="search-container">
-  <div>
-    <input type="text" (keyup)="handleKeyUp($event)" placeholder="search..." />
-    <div style="margin: 4px 0; text-align: center; height: 30px">
-      {{ loadingg ? "loading..." : "" }}
-    </div>
-  </div>
-</div>
-
-<ul>
-  <cdk-virtual-scroll-viewport
-    #CdkVirtualScrollViewport
-    appendOnly
-    itemSize="100"
-    class="example-viewport"
-  >
-    <li
-      *cdkVirtualFor="let item of data; index as idx; odd as odd"
-      [class.odd]="odd"
-      class="example-item"
-    >
-      {{ item.title + "__ " + idx }}
-    </li>
-    <div style="margin: 20px 0; text-align: center">
-      {{ (_loading | async) ? "loading..." : "" }}
-    </div>
-  </cdk-virtual-scroll-viewport>
-</ul>
-
-<div style="text-align: center">
+<div style="text-align: center; margin: 20px 0">
   <nz-select
     [nzOptionHeightPx]="60"
     style="width: 200px"
@@ -117,3 +88,32 @@
     />
   </svg>
 </ng-template>
+
+<div class="search-container">
+  <div>
+    <input type="text" (keyup)="handleKeyUp($event)" placeholder="search..." />
+    <div style="margin: 4px 0; text-align: center; height: 30px">
+      {{ loadingg ? "loading..." : "" }}
+    </div>
+  </div>
+</div>
+
+<ul>
+  <cdk-virtual-scroll-viewport
+    #CdkVirtualScrollViewport
+    appendOnly
+    itemSize="100"
+    class="example-viewport"
+  >
+    <li
+      *cdkVirtualFor="let item of data; index as idx; odd as odd"
+      [class.odd]="odd"
+      class="example-item"
+    >
+      {{ item.title + "__ " + idx }}
+    </li>
+    <div style="margin: 20px 0; text-align: center">
+      {{ (_loading | async) ? "loading..." : "" }}
+    </div>
+  </cdk-virtual-scroll-viewport>
+</ul>

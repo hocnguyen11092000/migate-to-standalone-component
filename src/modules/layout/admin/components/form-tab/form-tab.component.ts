@@ -56,6 +56,7 @@ export class FormTabComponent implements OnInit {
   selectedIndex = 0;
   isChanging = false;
   private _auth = inject(AuthService);
+  isNavigate = true;
 
   //#region inject service
   private _formCustomAddDelete = inject(FormTabCustomAddDeleteComponent);
@@ -184,6 +185,8 @@ export class FormTabComponent implements OnInit {
   }
 
   navigate() {
-    this._router.navigate(['/admin/reactive-form-custom-validator']);
+    setTimeout(() => {
+      this._router.navigate(['/admin/reactive-form-custom-validator']);
+    }, 0);
   }
 }

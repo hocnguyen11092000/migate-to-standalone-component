@@ -1,0 +1,22 @@
+.warning {
+  color: rgb(241, 168, 31);
+}
+
+.star {
+  display: inline-block;
+  margin-right: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.star.active {
+  background-color: orange;
+}
+
+.star-container {
+  padding: 12px;
+  display: inline-block;
+}

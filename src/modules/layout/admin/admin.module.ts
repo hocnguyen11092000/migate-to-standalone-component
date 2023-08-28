@@ -21,6 +21,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 //#endregion ant
 
 //#region guard
@@ -30,7 +31,12 @@ import { NgFormLength } from './components/form-array-ng-model/services/ng-form-
 import { HeaderComponent, MyLibModule, TrimDirective } from 'ng-core';
 import { FormTabCustomAddDeleteComponent } from './components/form-tab-custom-add-delete/form-tab-custom-add-delete.component';
 import { TestComponent } from './components/form-tab-custom-add-delete/components/test/test.component';
+import { ProxyComponent } from './components/proxy/proxy.component';
+import { candeActiveFunc } from 'src/guards/candeactive-func.guard';
+import { CustomControlValueAssesorComponent } from './components/custom-control-value-assesor/custom-control-value-assesor.component';
 //#endregion guard
+
+import { IconDefinition } from '@ant-design/icons-angular';
 
 const routes: Routes = [
   {
@@ -40,7 +46,7 @@ const routes: Routes = [
       {
         path: 'form-tab',
         component: FormTabComponent,
-        canDeactivate: [CanDeactivateConfirmLeave],
+        canDeactivate: [CanDeactivateConfirmLeave, candeActiveFunc],
       },
       {
         path: 'form-tab/:id',
@@ -50,6 +56,7 @@ const routes: Routes = [
       {
         path: 'form-array-ng-model',
         component: FormArrayNgModelComponent,
+        canDeactivate: [candeActiveFunc],
       },
       {
         path: 'form-array-reactive',
@@ -62,6 +69,14 @@ const routes: Routes = [
       {
         path: 'reactive-form-custom-add',
         component: FormTabCustomAddDeleteComponent,
+      },
+      {
+        path: 'proxy',
+        component: ProxyComponent,
+      },
+      {
+        path: 'custom-control',
+        component: CustomControlValueAssesorComponent,
       },
       {
         path: '',
@@ -77,6 +92,11 @@ const routes: Routes = [
   },
 ];
 
+import { StarOutline, StarFill } from '@ant-design/icons-angular/icons';
+import { CustomRate } from './components/custom-control-value-assesor/components/custom-rate/custom-rate.component';
+
+const icons: IconDefinition[] = [StarOutline, StarFill];
+
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
@@ -91,6 +111,8 @@ const routes: Routes = [
     NzGridModule,
     NzDropDownModule,
     NzCollapseModule,
+    NzIconModule.forRoot(icons),
+
     //#endregion ant
     TranslateModule,
     FormTabComponent,
@@ -118,6 +140,12 @@ const routes: Routes = [
     //   },
     // },
   ],
-  declarations: [FormTabCustomAddDeleteComponent, TestComponent],
+  declarations: [
+    FormTabCustomAddDeleteComponent,
+    TestComponent,
+    ProxyComponent,
+    CustomControlValueAssesorComponent,
+    CustomRate,
+  ],
 })
 export class AdminModule {}

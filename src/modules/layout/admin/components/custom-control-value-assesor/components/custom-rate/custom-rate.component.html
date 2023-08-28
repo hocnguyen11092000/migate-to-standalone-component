@@ -1,0 +1,13 @@
+<h3>Select star</h3>
+
+<div class="star-container" #starContainer>
+  <ng-container *ngFor="let s of star">
+    <span
+      [class.active]="s.active"
+      [attr.data-id]="s.id"
+      #star
+      class="star"
+      (click)="handleSelectStar(s.id)"
+    ></span>
+  </ng-container>
+</div>

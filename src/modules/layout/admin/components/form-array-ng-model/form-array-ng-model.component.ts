@@ -10,6 +10,7 @@ import { NgFor } from '@angular/common';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { RouterService } from 'src/services/pre-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-array-ng-model',
@@ -23,6 +24,15 @@ export class FormArrayNgModelComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   private _ngFormService = inject(NgModelForm);
   private _routerService = inject(RouterService);
+  private _router = inject(Router);
+
+  isNavigate = true;
+
+  navigate() {
+    setTimeout(() => {
+      this._router.navigate(['/admin/reactive-form-custom-validator']);
+    }, 0);
+  }
 
   constructor(
     // private _ngFormService: NgModelForm,
