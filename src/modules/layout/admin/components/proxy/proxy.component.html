@@ -1,3 +1,76 @@
-<p>
-  proxy works!
-</p>
+<h2>Validate for duplicate form controls</h2>
+
+<form
+  nz-form
+  [formGroup]="duplicateFm"
+  nzLayout="horizontal"
+  (ngSubmit)="submitForm()"
+>
+  <div class="form-array">
+    <ng-container *ngIf="getInforControl()">
+      <div nz-row [nzGutter]="12">
+        <ng-container
+          *ngFor="let arr of getInforControl().controls; index as i"
+        >
+          <div nz-col nzSpan="12">
+            <div class="form-array-item" formArrayName="infor">
+              <div class="form-array-item-group" [formGroupName]="i">
+                <div class="form-group">
+                  <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorTemplate">
+                      <input formControlName="id" nz-input placeholder="id" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <div class="form-group">
+                  <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorTemplate">
+                      <input
+                        type="text"
+                        nz-input
+                        formControlName="name"
+                        placeholder="name"
+                        id="name"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+
+  <button
+    [disabled]="!duplicateFm.valid"
+    type="submit"
+    nz-button
+    nzType="primary"
+  >
+    Submit
+  </button>
+</form>
+
+<!-- <ng-template #errorTemplate let-control>
+  <ng-container *ngIf="control?.hasError('required')">
+    <span>Trường này không được để trống</span>
+  </ng-container>
+
+  <ng-container *ngIf="control?.hasError('minlength')">
+    <span>Error from min length</span>
+  </ng-container>
+
+  <ng-container *ngIf="control?.hasError('duplicate')">
+    <span>This value is Duplicated</span>
+  </ng-container>
+</ng-template> -->
+
+<ng-template #errorTemplate let-control>
+  <app-show-error
+    [customMessage]="customMessage"
+    [errors]="control?.errors!"
+  ></app-show-error>
+</ng-template>

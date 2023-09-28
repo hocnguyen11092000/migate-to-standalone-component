@@ -186,7 +186,7 @@ export class FormTabComponent implements OnInit {
 
   navigate() {
     setTimeout(() => {
-      this._router.navigate(['/admin/reactive-form-custom-validator']);
+      // this._router.navigate(['/admin/reactive-form-custom-validator']);
     }, 0);
   }
 }

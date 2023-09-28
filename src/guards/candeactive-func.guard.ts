@@ -17,7 +17,9 @@ export const candeActiveFunc: CanDeactivateFn<unknown> = (
     return true;
   }
 
-  return navigate(_router);
+  return true;
+
+  // return navigate(_router);
 
   // return of([]).pipe(
   //   delay(100),
